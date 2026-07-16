@@ -14,6 +14,7 @@ class Config:
     DB_USER = os.getenv("DB_USER")
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     DB_NAME = os.getenv("DB_NAME")
+
     DB_SSL_CA = os.getenv("DB_SSL_CA")
 
 
@@ -25,13 +26,12 @@ class Config:
         f"{DB_PORT}/"
         f"{DB_NAME}"
         f"?charset=utf8mb4"
-        f"&ssl_ca={os.path.abspath(DB_SSL_CA)}"
+        f"&ssl_ca={DB_SSL_CA}"
     )
 
 
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
-    # Mejor estabilidad con Aiven
     SQLALCHEMY_POOL_RECYCLE = 280
     SQLALCHEMY_POOL_PRE_PING = True
 
