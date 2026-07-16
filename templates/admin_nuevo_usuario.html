@@ -1,0 +1,259 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<div class="container py-5">
+
+
+    <!-- ENCABEZADO -->
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
+        <div>
+
+            <h1 class="fw-bold">
+
+                <i class="bi bi-person-plus-fill text-danger"></i>
+
+                Nuevo Usuario
+
+            </h1>
+
+            <p class="text-secondary mb-0">
+
+                Registra una nueva cuenta dentro de la plataforma NOVAFLIX.
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="/admin/usuarios"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+
+    </div>
+
+
+
+    <div class="row g-4">
+
+
+        <!-- FORMULARIO -->
+
+        <div class="col-lg-8">
+
+
+            <form
+                method="POST"
+                class="admin-form"
+            >
+
+
+                <div class="form-section">
+
+
+                    <h5>
+
+                        <i class="bi bi-person text-danger"></i>
+
+                        Información del Usuario
+
+                    </h5>
+
+
+
+                    <div class="mb-3">
+
+
+                        <label class="form-label">
+
+                            Nombre
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            name="nombre"
+                            class="form-control form-control-dark"
+                            required
+                        >
+
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+
+                        <label class="form-label">
+
+                            Correo electrónico
+
+                        </label>
+
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control form-control-dark"
+                            required
+                        >
+
+
+                    </div>
+
+
+
+                    <div class="mb-3">
+
+
+                        <label class="form-label">
+
+                            Contraseña
+
+                        </label>
+
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control form-control-dark"
+                            required
+                        >
+
+
+                    </div>
+
+
+
+                    <div class="mb-4">
+
+
+                        <label class="form-label">
+
+                            Rol
+
+                        </label>
+
+
+                        <select
+                            name="rol"
+                            class="form-select form-select-dark"
+                        >
+
+                            <option value="usuario">
+
+                                Usuario
+
+                            </option>
+
+
+                            <option value="admin">
+
+                                Administrador
+
+                            </option>
+
+
+                        </select>
+
+
+                    </div>
+
+                    <div class="d-flex gap-3">
+
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger"
+                        >
+
+                            <i class="bi bi-check-circle"></i>
+
+                            Crear Usuario
+
+                        </button>
+
+
+
+                        <a
+                            href="/admin/usuarios"
+                            class="btn btn-outline-secondary"
+                        >
+
+                            <i class="bi bi-arrow-left"></i>
+
+                            Cancelar
+
+                        </a>
+
+
+                    </div>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+
+        <!-- INFORMACIÓN -->
+
+        <div class="col-lg-4">
+
+
+            <div class="dashboard-card">
+
+
+                <h5 class="mb-3">
+
+                    <i class="bi bi-shield-check text-danger"></i>
+
+                    Permisos de Usuario
+
+                </h5>
+
+
+                <p class="text-secondary mb-0">
+
+                    Los usuarios administradores tendrán acceso
+                    al panel de gestión de NOVAFLIX, incluyendo
+                    la administración del catálogo y las funciones
+                    internas de la plataforma.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+{% include 'partials/footer.html' %}
+
+
+{% endblock %}

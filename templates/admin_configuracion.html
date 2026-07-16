@@ -1,0 +1,225 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<div class="container py-5">
+
+<div class="admin-toolbar">
+
+    <div>
+
+        <h1 class="fw-bold mb-2">
+
+            <i class="bi bi-gear-fill text-danger"></i>
+
+            Configuración del Sistema
+
+        </h1>
+
+        <p class="text-secondary mb-0">
+
+            Administración general de los parámetros de NOVAFLIX.
+
+        </p>
+
+    </div>
+
+</div>
+
+<div class="row g-4">
+
+    <div class="col-lg-8">
+
+        <form method="POST" class="admin-form">
+
+            <!-- IDENTIDAD DEL SITIO -->
+
+            <div class="form-section">
+
+
+                <h5>
+
+                    <i class="bi bi-window"></i>
+
+                    Identidad de la Plataforma
+
+                </h5>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Nombre del Sitio
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="nombre_sitio"
+                        class="form-control form-control-dark"
+                        value="{{ config.nombre_sitio }}"
+                    >
+
+                </div>
+
+                <div class="mb-3">
+
+                    <label class="form-label">
+
+                        Descripción
+
+                    </label>
+
+                    <textarea
+                        name="descripcion"
+                        rows="4"
+                        class="form-control form-control-dark"
+                    >{{ config.descripcion }}</textarea>
+
+                </div>
+
+                <div>
+
+                    <label class="form-label">
+
+                        URL del Logo
+
+                    </label>
+
+                    <input
+                        type="text"
+                        name="logo"
+                        class="form-control form-control-dark"
+                        value="{{ config.logo }}"
+                    >
+
+                </div>
+
+            </div>
+
+            <!-- SEGURIDAD -->
+
+            <div class="form-section">
+
+                <h5>
+
+                    <i class="bi bi-shield-lock"></i>
+
+                    Seguridad de Sesiones
+
+                </h5>
+
+                <div>
+
+                    <label class="form-label">
+
+                        Tiempo de Token (minutos)
+
+                    </label>
+
+                    <input
+                        type="number"
+                        min="1"
+                        max="120"
+                        name="tiempo_token"
+                        class="form-control form-control-dark"
+                        value="{{ config.tiempo_token }}"
+                    >
+
+                    <small class="form-help">
+
+                        Tiempo máximo de inactividad permitido antes de cerrar sesión automáticamente.
+
+                    </small>
+
+                </div>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-danger btn-lg"
+            >
+
+                <i class="bi bi-save"></i>
+
+                Guardar Configuración
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card">
+
+            <h5 class="mb-4">
+
+                <i class="bi bi-info-circle text-danger"></i>
+
+                Resumen del Sistema
+
+            </h5>
+
+            <p class="text-secondary">
+
+                Este módulo controla los valores principales
+                utilizados por la plataforma.
+
+            </p>
+
+            <ul class="list-unstyled mb-0">
+
+                <li class="mb-3">
+
+                    <i class="bi bi-check-circle text-success me-2"></i>
+
+                    Identidad visual
+
+                </li>
+
+                <li class="mb-3">
+
+                    <i class="bi bi-check-circle text-success me-2"></i>
+
+                    Información pública
+
+                </li>
+
+                <li class="mb-3">
+
+                    <i class="bi bi-check-circle text-success me-2"></i>
+
+                    Seguridad de acceso
+
+                </li>
+
+                <li>
+
+                    <i class="bi bi-check-circle text-success me-2"></i>
+
+                    Control de sesiones
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+{% include 'partials/footer.html' %}
+
+{% endblock %}

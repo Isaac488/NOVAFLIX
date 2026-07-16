@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Crear cuenta | NOVAFLIX
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 fade-in">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-8 col-lg-5">
+
+            <div class="card shadow-soft">
+
+                <div class="card-body p-4 p-lg-5">
+
+                    <div class="text-center mb-4">
+
+                        <i class="bi bi-person-plus-fill text-danger fs-1"></i>
+
+                        <h1 class="h3 mt-3 mb-2">
+
+                            Crea tu cuenta
+
+                        </h1>
+
+                        <p>
+
+                            Regístrate para comenzar a disfrutar de todo el catálogo de NOVAFLIX.
+
+                        </p>
+
+                    </div>
+
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+
+                        {% if messages %}
+
+                            {% for category, message in messages %}
+
+                                <div class="alert alert-{{ category }}">
+
+                                    {{ message }}
+
+                                </div>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    {% endwith %}
+
+                    <form method="POST">
+
+                        <div class="mb-3">
+
+                            <label for="nombre" class="form-label">
+
+                                Nombre
+
+                            </label>
+
+                            <input
+                                id="nombre"
+                                name="nombre"
+                                type="text"
+                                class="form-control"
+                                placeholder="Tu nombre"
+                                required>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label for="email" class="form-label">
+
+                                Correo electrónico
+
+                            </label>
+
+                            <input
+                                id="email"
+                                name="email"
+                                type="email"
+                                class="form-control"
+                                placeholder="correo@ejemplo.com"
+                                required>
+
+                        </div>
+
+                        <div class="mb-4">
+
+                            <label for="password" class="form-label">
+
+                                Contraseña
+
+                            </label>
+
+                            <input
+                                id="password"
+                                name="password"
+                                type="password"
+                                class="form-control"
+                                placeholder="••••••••"
+                                required>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn btn-danger w-100">
+
+                            <i class="bi bi-person-check me-2"></i>
+
+                            Crear cuenta
+
+                        </button>
+
+                    </form>
+
+                    <hr class="my-4">
+
+                    <div class="text-center">
+
+                        <p class="mb-2">
+
+                            ¿Ya tienes una cuenta?
+
+                        </p>
+
+                        <a
+                            href="/login"
+                            class="btn btn-outline-light w-100">
+
+                            <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                            Iniciar sesión
+
+                        </a>
+
+                    </div>
+
+                    <div class="text-center mt-4">
+
+                        <a
+                            href="/"
+                            class="text-muted">
+
+                            <i class="bi bi-arrow-left me-1"></i>
+
+                            Volver al inicio
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

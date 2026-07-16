@@ -1,0 +1,577 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<div class="container py-5">
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
+        <div>
+
+            <h1 class="fw-bold">
+
+                <i class="bi bi-pencil-square text-warning"></i>
+
+                Editar Película
+
+            </h1>
+
+            <p class="text-secondary mb-0">
+
+                Actualiza la información, categorías y fuente de reproducción.
+
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('admin.peliculas_admin') }}"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </div>
+
+
+    <form method="POST">
+
+        <div class="row g-4">
+
+            <!-- COLUMNA PRINCIPAL -->
+
+            <div class="col-lg-8">
+
+
+                <!-- INFORMACIÓN GENERAL -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h4 class="mb-4">
+
+                        <i class="bi bi-film text-danger"></i>
+
+                        Información General
+
+                    </h4>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Título
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="titulo"
+                            class="form-control form-control-dark"
+                            value="{{ pelicula.titulo }}"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Descripción
+
+                        </label>
+
+                        <textarea
+                            name="descripcion"
+                            rows="6"
+                            class="form-control form-control-dark"
+                        >{{ pelicula.descripcion or '' }}</textarea>
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Año
+
+                            </label>
+
+                            <input
+                                type="number"
+                                name="anio"
+                                class="form-control form-control-dark"
+                                value="{{ pelicula.anio or '' }}"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Duración
+
+                            </label>
+
+                            <input
+                                type="number"
+                                name="duracion"
+                                class="form-control form-control-dark"
+                                value="{{ pelicula.duracion or '' }}"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Calificación
+
+                            </label>
+
+                            <input
+                                type="number"
+                                name="calificacion"
+                                step="0.1"
+                                min="0"
+                                max="10"
+                                class="form-control form-control-dark"
+                                value="{{ pelicula.calificacion or '' }}"
+                            >
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- IMÁGENES -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h4 class="mb-4">
+
+                        <i class="bi bi-images text-danger"></i>
+
+                        Imágenes
+
+                    </h4>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Poster
+
+                        </label>
+
+                        <input
+                            type="url"
+                            name="poster"
+                            class="form-control form-control-dark"
+                            value="{{ pelicula.poster or '' }}"
+                        >
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Backdrop
+
+                        </label>
+
+                        <input
+                            type="url"
+                            name="backdrop"
+                            class="form-control form-control-dark"
+                            value="{{ pelicula.backdrop or '' }}"
+                        >
+
+                    </div>
+
+                </div>
+
+
+
+                <!-- FUENTE PRINCIPAL -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h4 class="mb-4">
+
+                        <i class="bi bi-play-circle text-danger"></i>
+
+                        Fuente Principal
+
+                    </h4>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            URL del video
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="video_url"
+                            class="form-control form-control-dark"
+                            value="{{ fuente.url if fuente else '' }}"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Tipo
+
+                            </label>
+
+                            <select
+                                name="tipo_video"
+                                class="form-select form-select-dark"
+                            >
+
+                                <option
+                                    value="mp4"
+                                    {% if fuente and fuente.tipo=="mp4" %}
+                                    selected
+                                    {% endif %}
+                                >
+
+                                    MP4
+
+                                </option>
+
+
+                                <option
+                                    value="youtube"
+                                    {% if fuente and fuente.tipo=="youtube" %}
+                                    selected
+                                    {% endif %}
+                                >
+
+                                    YouTube
+
+                                </option>
+
+
+                                <option
+                                    value="hls"
+                                    {% if fuente and fuente.tipo=="hls" %}
+                                    selected
+                                    {% endif %}
+                                >
+
+                                    HLS (.m3u8)
+
+                                </option>
+
+
+                            </select>
+
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Calidad
+
+                            </label>
+
+                            <input
+                                type="text"
+                                name="calidad"
+                                class="form-control form-control-dark"
+                                value="{{ fuente.calidad if fuente else '' }}"
+                                placeholder="1080p"
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Idioma
+
+                        </label>
+
+                        <input
+                            type="text"
+                            name="idioma"
+                            class="form-control form-control-dark"
+                            value="{{ fuente.idioma if fuente else '' }}"
+                            placeholder="Español Latino"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- COLUMNA LATERAL -->
+
+            <div class="col-lg-4">
+
+
+                <!-- CATEGORÍAS -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h4 class="mb-4">
+
+                        <i class="bi bi-tags text-danger"></i>
+
+                        Categorías
+
+                    </h4>
+
+
+                    <select
+                        name="categorias"
+                        multiple
+                        class="form-select form-select-dark"
+                        size="10"
+                    >
+
+                        {% for categoria in categorias %}
+
+                        <option
+                            value="{{ categoria.id }}"
+                            {% if categoria in pelicula.categorias %}
+                            selected
+                            {% endif %}
+                        >
+
+                            {{ categoria.nombre }}
+
+                        </option>
+
+                        {% endfor %}
+
+
+                    </select>
+
+
+                    <small class="form-help">
+
+                        Mantén presionada la tecla Ctrl para seleccionar varias categorías.
+
+                    </small>
+
+
+                </div>
+
+
+
+
+                <!-- OPCIONES -->
+
+                <div class="dashboard-card mb-4">
+
+                    <h4 class="mb-4">
+
+                        <i class="bi bi-sliders text-danger"></i>
+
+                        Opciones
+
+                    </h4>
+
+
+                    <div class="form-check form-switch mb-4">
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            name="destacada"
+                            id="destacada"
+                            {% if pelicula.destacada %}
+                            checked
+                            {% endif %}
+                        >
+
+
+                        <label
+                            class="form-check-label"
+                            for="destacada"
+                        >
+
+                            Mostrar en Inicio
+
+                        </label>
+
+
+                    </div>
+
+
+
+                    <label class="form-label">
+
+                        Estado
+
+                    </label>
+
+
+                    <select
+                        name="estado"
+                        class="form-select form-select-dark"
+                    >
+
+                        <option
+                            value="publicada"
+                            {% if pelicula.estado=="publicada" %}
+                            selected
+                            {% endif %}
+                        >
+
+                            Publicada
+
+                        </option>
+
+
+                        <option
+                            value="oculta"
+                            {% if pelicula.estado=="oculta" %}
+                            selected
+                            {% endif %}
+                        >
+
+                            Oculta
+
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+                <!-- AYUDA -->
+
+                <div class="dashboard-card">
+
+                    <h4 class="mb-3">
+
+                        <i class="bi bi-lightbulb text-danger"></i>
+
+                        Recomendaciones
+
+                    </h4>
+
+
+                    <ul class="mb-0">
+
+                        <li>
+
+                            Verifica los datos antes de guardar.
+
+                        </li>
+
+                        <li>
+
+                            Mantén las categorías actualizadas.
+
+                        </li>
+
+                        <li>
+
+                            Comprueba que la fuente de video sea válida.
+
+                        </li>
+
+
+                    </ul>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <!-- ACCIONES -->
+
+        <div class="mt-5 d-flex gap-3">
+
+
+            <button
+                type="submit"
+                class="btn btn-danger btn-lg"
+            >
+
+                <i class="bi bi-check-circle"></i>
+
+                Guardar cambios
+
+            </button>
+
+
+
+            <a
+                href="{{ url_for('admin.peliculas_admin') }}"
+                class="btn btn-outline-secondary btn-lg"
+            >
+
+                Cancelar
+
+            </a>
+
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+{% include 'partials/footer.html' %}
+
+
+{% endblock %}

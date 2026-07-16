@@ -1,0 +1,435 @@
+/*==================================================
+=            NAVBAR
+==================================================*/
+
+.navbar{
+
+    background:#0F0F0F !important;
+
+    border-bottom:1px solid #222;
+
+    min-height:72px;
+
+    backdrop-filter:blur(10px);
+
+    transition:background .25s ease;
+
+    z-index:1030;
+
+}
+
+.navbar-brand{
+
+    color:var(--primary)!important;
+
+    font-size:1.45rem;
+
+    font-weight:700;
+
+    letter-spacing:.4px;
+
+}
+
+.navbar-brand i{
+
+    margin-right:6px;
+
+}
+
+.navbar .nav-link{
+
+    color:#d2d2d2!important;
+
+    font-weight:500;
+
+    transition:color .25s ease;
+
+}
+
+.navbar .nav-link:hover{
+
+    color:#FFF!important;
+
+}
+
+.navbar .nav-link.active{
+
+    color:#FFF!important;
+
+}
+
+
+/*==================================================
+=            BUSCADOR
+==================================================*/
+
+#navbar-search-form{
+
+    width:100%;
+
+    max-width:520px;
+
+}
+
+#navbar-search-form .input-group{
+
+    overflow:hidden;
+
+    border-radius:8px;
+
+}
+
+#navbar-search-form .input-group-text{
+
+    background:#1A1A1A;
+
+    border:1px solid #333;
+
+    border-right:none;
+
+    color:#999;
+
+}
+
+#navbar-search{
+
+    background:#1A1A1A;
+
+    color:#FFF;
+
+    border:1px solid #333;
+
+    border-left:none;
+
+    box-shadow:none;
+
+}
+
+#navbar-search::placeholder{
+
+    color:#8B8B8B;
+
+}
+
+#navbar-search:focus{
+
+    background:#1A1A1A;
+
+    border-color:var(--primary);
+
+    color:#FFF;
+
+}
+
+#navbar-search-form:focus-within .input-group{
+
+    box-shadow:
+
+        0 0 0 .18rem
+
+        rgba(229,9,20,.22);
+
+}
+
+/*==================================================
+=            DROPDOWN USUARIO
+==================================================*/
+
+.dropdown-menu{
+
+    background:#1A1A1A;
+
+    border:1px solid #2D2D2D;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    min-width:220px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.dropdown-item{
+
+    color:#E5E5E5;
+
+    transition:
+
+        background var(--transition),
+
+        color var(--transition);
+
+}
+
+.dropdown-item i{
+
+    width:20px;
+
+    margin-right:8px;
+
+    color:#B5B5B5;
+
+}
+
+.dropdown-item:hover{
+
+    background:#262626;
+
+    color:#FFF;
+
+}
+
+.dropdown-divider{
+
+    border-color:#333;
+
+}
+
+
+/*==================================================
+=            SUGERENCIAS
+==================================================*/
+
+.search-suggestions{
+
+    position:absolute;
+
+    top:100%;
+
+    left:0;
+
+    right:0;
+
+    margin-top:8px;
+
+    background:#181818;
+
+    border:1px solid #333;
+
+    border-radius:8px;
+
+    overflow:hidden;
+
+    box-shadow:var(--shadow);
+
+    max-height:450px;
+
+    overflow-y:auto;
+
+    z-index:1200;
+
+}
+
+
+/*==================================================
+=            RESULTADOS
+==================================================*/
+
+.search-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    padding:10px 14px;
+
+    color:#FFF;
+
+    text-decoration:none;
+
+    transition:background var(--transition);
+
+}
+
+.search-item:hover{
+
+    background:#242424;
+
+    color:#FFF;
+
+}
+
+.search-item:not(:last-child){
+
+    border-bottom:1px solid #292929;
+
+}
+
+.search-item img{
+
+    width:46px;
+
+    height:68px;
+
+    object-fit:cover;
+
+    border-radius:6px;
+
+    flex-shrink:0;
+
+}
+
+.search-item-placeholder{
+
+    width:46px;
+
+    height:68px;
+
+    background:#2B2B2B;
+
+    border-radius:6px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#666;
+
+    flex-shrink:0;
+
+}
+
+.search-item-body{
+
+    flex:1;
+
+    overflow:hidden;
+
+}
+
+.search-item-title{
+
+    color:#FFF;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    overflow:hidden;
+
+    text-overflow:ellipsis;
+
+}
+
+.search-item-meta{
+
+    margin-top:4px;
+
+    color:#A6A6A6;
+
+    font-size:.82rem;
+
+}
+
+.search-item-meta i{
+
+    margin-right:5px;
+
+}
+
+
+/*==================================================
+=            ESTADOS
+==================================================*/
+
+.search-loading,
+
+.search-empty{
+
+    padding:18px;
+
+    text-align:center;
+
+    color:#A0A0A0;
+
+}
+
+.search-loading i{
+
+    animation:navbarSpin 1s linear infinite;
+
+}
+
+@keyframes navbarSpin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
+
+    to{
+
+        transform:rotate(360deg);
+
+    }
+
+}
+
+
+/*==================================================
+=            SCROLL
+==================================================*/
+
+.search-suggestions::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.search-suggestions::-webkit-scrollbar-track{
+
+    background:#181818;
+
+}
+
+.search-suggestions::-webkit-scrollbar-thumb{
+
+    background:#444;
+
+    border-radius:20px;
+
+}
+
+.search-suggestions::-webkit-scrollbar-thumb:hover{
+
+    background:var(--primary);
+
+}
+
+
+/*==================================================
+=            RESPONSIVE NAVBAR
+==================================================*/
+
+@media (max-width:991px){
+
+    #navbar-search-form{
+
+        max-width:100%;
+
+        margin:16px 0;
+
+    }
+
+    .search-suggestions{
+
+        position:relative;
+
+        margin-top:12px;
+
+    }
+
+    .navbar-nav{
+
+        gap:4px;
+
+    }
+
+}

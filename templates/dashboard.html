@@ -1,0 +1,460 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+
+<section class="dashboard">
+
+<div class="container py-5">
+
+
+    <!-- ENCABEZADO -->
+
+    <div class="dashboard-title mb-5">
+
+        <h1>
+
+            Panel de Control
+
+        </h1>
+
+        <p>
+
+            Administra el contenido, usuarios y servicios
+            de la plataforma NOVAFLIX.
+
+        </p>
+
+
+    </div>
+
+
+
+    <!-- ESTADO DEL SISTEMA -->
+
+    <div class="row g-3 mb-5">
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+
+                <div class="dashboard-card-icon">
+
+                    <i class="bi bi-check-circle-fill"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Sistema operativo
+
+                </h5>
+
+                <span>
+
+                    Todos los servicios funcionan correctamente.
+
+                </span>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+
+                <div class="dashboard-card-icon">
+
+                    <i class="bi bi-database-fill-check"></i>
+
+                </div>
+
+
+                <h5>
+
+                    Base de datos
+
+                </h5>
+
+
+                <span>
+
+                    Conexión establecida correctamente.
+
+                </span>
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class="col-md-4">
+
+            <div class="dashboard-card">
+
+
+                <div class="dashboard-card-icon">
+
+                    <i class="bi bi-cloud-check-fill"></i>
+
+                </div>
+
+
+                <h5>
+
+                    TMDB API
+
+                </h5>
+
+
+                <span>
+
+                    Importación de información disponible.
+
+                </span>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- ACCIONES PRINCIPALES -->
+
+    <div class="admin-panel mb-5">
+
+
+        <div class="admin-panel-title">
+
+            <h3>
+
+                <i class="bi bi-grid-fill text-danger"></i>
+
+                Gestión de plataforma
+
+            </h3>
+
+
+        </div>
+
+
+
+        <div class="row g-4">
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+
+                <a
+                    href="/admin/peliculas/nueva"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card text-center h-100">
+
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-film"></i>
+
+                        </div>
+
+
+                        <h5>
+
+                            Nueva película
+
+                        </h5>
+
+
+                        <span>
+
+                            Añadir contenido al catálogo.
+
+                        </span>
+
+
+                    </div>
+
+
+                </a>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+
+                <a
+                    href="/admin/peliculas"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card text-center h-100">
+
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-collection-play"></i>
+
+                        </div>
+
+
+                        <h5>
+
+                            Catálogo
+
+                        </h5>
+
+
+                        <span>
+
+                            Gestionar películas existentes.
+
+                        </span>
+
+
+                    </div>
+
+
+                </a>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+
+                <a
+                    href="/admin/usuarios"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card text-center h-100">
+
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-people-fill"></i>
+
+                        </div>
+
+
+                        <h5>
+
+                            Usuarios
+
+                        </h5>
+
+
+                        <span>
+
+                            Administración de cuentas.
+
+                        </span>
+
+
+                    </div>
+
+
+                </a>
+
+
+            </div>
+
+
+
+
+
+            <div class="col-lg-3 col-md-6">
+
+
+                <a
+                    href="/admin/configuracion"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card text-center h-100">
+
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-gear-fill"></i>
+
+                        </div>
+
+
+                        <h5>
+
+                            Configuración
+
+                        </h5>
+
+
+                        <span>
+
+                            Ajustes generales del sistema.
+
+                        </span>
+
+
+                    </div>
+
+
+                </a>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+
+
+    <!-- MODULOS FUTUROS -->
+
+    <div class="admin-panel">
+
+
+        <div class="admin-panel-title">
+
+            <h3>
+
+                <i class="bi bi-layers-fill text-danger"></i>
+
+                Servicios NOVAFLIX
+
+            </h3>
+
+
+        </div>
+
+
+
+        <div class="row g-3">
+
+
+            <div class="col-md-4">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-play-circle fs-2 text-danger"></i>
+
+                    <h5 class="mt-3">
+
+                        Reproductor
+
+                    </h5>
+
+                    <span>
+
+                        Gestión del sistema de reproducción.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-4">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-heart-fill fs-2 text-danger"></i>
+
+                    <h5 class="mt-3">
+
+                        Favoritos
+
+                    </h5>
+
+                    <span>
+
+                        Listas personales de usuarios.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-md-4">
+
+                <div class="dashboard-card">
+
+                    <i class="bi bi-graph-up fs-2 text-danger"></i>
+
+                    <h5 class="mt-3">
+
+                        Estadísticas
+
+                    </h5>
+
+                    <span>
+
+                        Métricas de uso y rendimiento.
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+</section>
+
+
+
+{% include 'partials/footer.html' %}
+
+
+{% endblock %}

@@ -1,0 +1,32 @@
+# Variables de entorno
+.env
+
+# Certificados y claves privadas
+*.pem
+*.key
+
+# Caché de Python
+__pycache__/
+*.py[cod]
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+
+# Configuraciones locales
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Archivos temporales
+*.tmp
+
+# Base de datos local
+*.sqlite
+*.db
+
+# Archivos subidos por usuarios (si tienes)
+uploads/

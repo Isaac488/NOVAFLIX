@@ -1,0 +1,272 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<section
+    class="movie-detail-hero"
+    {% if pelicula.backdrop %}
+    style="
+        background-image:
+        linear-gradient(
+            rgba(0,0,0,.55),
+            rgba(0,0,0,.95)
+        ),
+        url('{{ pelicula.backdrop }}');
+    "
+    {% endif %}
+>
+
+    <div class="container py-5">
+
+        <div class="row align-items-center g-5">
+
+            <!-- POSTER -->
+
+            <div class="col-lg-4 text-center">
+
+                {% if pelicula.poster %}
+
+                <img
+                    src="{{ pelicula.poster }}"
+                    alt="{{ pelicula.titulo }}"
+                    class="movie-detail-poster shadow-lg"
+                >
+
+                {% else %}
+
+                <div class="movie-poster-placeholder">
+
+                    <i class="bi bi-film"></i>
+
+                </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- INFORMACIÓN -->
+
+            <div class="col-lg-8">
+
+                {% if pelicula.destacada %}
+
+                <span class="badge bg-danger mb-3">
+
+                    <i class="bi bi-star-fill"></i>
+
+                    Destacada
+
+                </span>
+
+                {% endif %}
+
+
+                <h1 class="display-4 fw-bold">
+
+                    {{ pelicula.titulo }}
+
+                </h1>
+
+
+                <div class="movie-meta-detail mt-4 mb-4">
+
+                    {% if pelicula.anio %}
+
+                    <span>
+
+                        <i class="bi bi-calendar3 text-danger"></i>
+
+                        {{ pelicula.anio }}
+
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if pelicula.duracion %}
+
+                    <span>
+
+                        <i class="bi bi-clock text-danger"></i>
+
+                        {{ pelicula.duracion }} min
+
+                    </span>
+
+                    {% endif %}
+
+
+                    {% if pelicula.calificacion %}
+
+                    <span>
+
+                        <i class="bi bi-star-fill text-warning"></i>
+
+                        {{ pelicula.calificacion }}
+
+                    </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                {% if pelicula.categorias %}
+
+                <div class="mb-4">
+
+                    {% for categoria in pelicula.categorias %}
+
+                    <span class="badge bg-secondary me-1">
+
+                        {{ categoria.nombre }}
+
+                    </span>
+
+                    {% endfor %}
+
+                </div>
+
+                {% endif %}
+
+
+                <p class="lead text-secondary">
+
+                    {{ pelicula.descripcion }}
+
+                </p>
+
+
+                <div class="mt-5">
+
+                    {% if pelicula.video_url %}
+
+                    <a
+                        href="/watch/{{ pelicula.id }}"
+                        class="btn btn-danger btn-lg px-5"
+                    >
+
+                        <i class="bi bi-play-fill"></i>
+
+                        Ver ahora
+
+                    </a>
+
+                    {% else %}
+
+                    <button
+                        class="btn btn-secondary btn-lg"
+                        disabled
+                    >
+
+                        <i class="bi bi-exclamation-circle"></i>
+
+                        Sin reproducción disponible
+
+                    </button>
+
+                    {% endif %}
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% if relacionadas %}
+
+<section class="container py-5">
+
+    <div class="d-flex align-items-center mb-4">
+
+        <h3 class="mb-0">
+
+            <i class="bi bi-collection-play text-danger"></i>
+
+            Contenido similar
+
+        </h3>
+
+    </div>
+
+
+    <div class="row g-4">
+
+        {% for relacionada in relacionadas %}
+
+        <div class="col-lg-3 col-md-4 col-6">
+
+            <a
+                href="/pelicula/{{ relacionada.id }}"
+                class="text-decoration-none"
+            >
+
+                <div class="movie-related-card">
+
+                    {% if relacionada.poster %}
+
+                    <img
+                        src="{{ relacionada.poster }}"
+                        alt="{{ relacionada.titulo }}"
+                        class="movie-related-poster"
+                        loading="lazy"
+                    >
+
+                    {% else %}
+
+                    <div class="movie-related-placeholder">
+
+                        <i class="bi bi-film"></i>
+
+                    </div>
+
+                    {% endif %}
+
+
+                    <div class="movie-related-info">
+
+                        <h6>
+
+                            {{ relacionada.titulo }}
+
+                        </h6>
+
+
+                        {% if relacionada.anio %}
+
+                        <span class="text-secondary">
+
+                            {{ relacionada.anio }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </a>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% endif %}
+
+
+{% include 'partials/footer.html' %}
+
+{% endblock %}

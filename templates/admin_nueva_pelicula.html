@@ -1,0 +1,716 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<div class="container py-5">
+
+    <!-- ENCABEZADO -->
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
+        <div>
+
+            <h1 class="fw-bold">
+
+                <i class="bi bi-plus-circle text-danger"></i>
+
+                Nueva Película
+
+            </h1>
+
+            <p class="text-secondary mb-0">
+
+                Administra la información y disponibilidad del contenido en NOVAFLIX.
+
+            </p>
+
+        </div>
+
+        <a
+            href="{{ url_for('admin.peliculas_admin') }}"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+    </div>
+
+
+    <!-- BUSCADOR TMDB -->
+
+    <div class="dashboard-card mb-4">
+
+        <div class="d-flex align-items-center mb-4">
+
+            <i class="bi bi-search text-danger fs-4 me-2"></i>
+
+            <h4 class="mb-0">
+
+                Importar información desde TMDB
+
+            </h4>
+
+        </div>
+
+
+        <div class="input-group">
+
+            <input
+                type="text"
+                id="tmdb-query"
+                class="form-control"
+                placeholder="Buscar película por nombre..."
+            >
+
+            <button
+                class="btn btn-danger"
+                type="button"
+                id="tmdb-search-btn"
+            >
+
+                <i class="bi bi-search"></i>
+
+                Buscar
+
+            </button>
+
+        </div>
+
+
+        <div
+            id="tmdb-results"
+            class="mt-3"
+        ></div>
+
+
+    </div>
+
+
+    <form method="POST">
+
+
+        <div class="row g-4">
+
+
+            <!-- INFORMACIÓN PRINCIPAL -->
+
+            <div class="col-lg-8">
+
+
+                <div class="dashboard-card mb-4">
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-film text-danger fs-4 me-2"></i>
+
+                        <h4 class="mb-0">
+
+                            Información principal
+
+                        </h4>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Título
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            name="titulo"
+                            class="form-control form-control-dark"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Descripción
+
+                        </label>
+
+
+                        <textarea
+                            id="descripcion"
+                            name="descripcion"
+                            class="form-control form-control-dark"
+                            rows="6"
+                        ></textarea>
+
+                    </div>
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Año
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="anio"
+                                name="anio"
+                                class="form-control form-control-dark"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Duración
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="duracion"
+                                name="duracion"
+                                class="form-control form-control-dark"
+                            >
+
+                        </div>
+
+
+                        <div class="col-md-4 mb-3">
+
+                            <label class="form-label">
+
+                                Calificación
+
+                            </label>
+
+
+                            <input
+                                type="number"
+                                id="calificacion"
+                                name="calificacion"
+                                min="0"
+                                max="10"
+                                step="0.1"
+                                class="form-control form-control-dark"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- MULTIMEDIA -->
+
+
+                <div class="dashboard-card mb-4">
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-images text-danger fs-4 me-2"></i>
+
+                        <h4 class="mb-0">
+
+                            Material visual
+
+                        </h4>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            Poster
+
+                        </label>
+
+
+                        <input
+                            type="url"
+                            id="poster"
+                            name="poster"
+                            class="form-control form-control-dark"
+                        >
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+
+                            Backdrop
+
+                        </label>
+
+
+                        <input
+                            type="url"
+                            id="backdrop"
+                            name="backdrop"
+                            class="form-control form-control-dark"
+                        >
+
+                    </div>
+
+
+                    <div class="poster-preview">
+
+                        <img
+                            id="poster-preview"
+                            class="img-fluid rounded shadow d-none"
+                        >
+
+                        <i class="bi bi-film text-secondary fs-1"></i>
+
+                    </div>
+
+
+                </div>
+
+                <!-- REPRODUCCIÓN -->
+
+
+                <div class="dashboard-card mb-4">
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-play-circle text-danger fs-4 me-2"></i>
+
+                        <h4 class="mb-0">
+
+                            Fuente de reproducción
+
+                        </h4>
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+
+                            URL del video
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            name="video_url"
+                            class="form-control form-control-dark"
+                            placeholder="https://..."
+                        >
+
+                    </div>
+
+
+                    <div class="row">
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Tipo de reproducción
+
+                            </label>
+
+
+                            <select
+                                name="tipo_video"
+                                class="form-select form-control-dark"
+                            >
+
+                                <option value="mp4">
+
+                                    MP4
+
+                                </option>
+
+                                <option value="youtube">
+
+                                    YouTube
+
+                                </option>
+
+                                <option value="hls">
+
+                                    HLS (.m3u8)
+
+                                </option>
+
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="col-md-6 mb-3">
+
+                            <label class="form-label">
+
+                                Calidad
+
+                            </label>
+
+
+                            <input
+                                type="text"
+                                name="calidad"
+                                class="form-control form-control-dark"
+                                placeholder="1080p"
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+                    <div>
+
+                        <label class="form-label">
+
+                            Idioma
+
+                        </label>
+
+
+                        <input
+                            type="text"
+                            name="idioma"
+                            class="form-control form-control-dark"
+                            placeholder="Español Latino"
+                        >
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- CONFIGURACIÓN -->
+
+
+            <div class="col-lg-4">
+
+
+                <div class="dashboard-card mb-4">
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-tags text-danger fs-4 me-2"></i>
+
+                        <h4 class="mb-0">
+
+                            Categorías
+
+                        </h4>
+
+                    </div>
+
+
+                    <select
+                        name="categorias"
+                        class="form-select form-control-dark"
+                        multiple
+                        size="9"
+                    >
+
+                        {% for categoria in categorias %}
+
+
+                        <option value="{{ categoria.id }}">
+
+                            {{ categoria.nombre }}
+
+                        </option>
+
+
+                        {% endfor %}
+
+
+                    </select>
+
+
+                    <small class="text-secondary d-block mt-2">
+
+                        Usa Ctrl para seleccionar varias categorías.
+
+                    </small>
+
+
+                </div>
+
+
+
+                <div class="dashboard-card mb-4">
+
+
+                    <div class="d-flex align-items-center mb-4">
+
+                        <i class="bi bi-sliders text-danger fs-4 me-2"></i>
+
+                        <h4 class="mb-0">
+
+                            Publicación
+
+                        </h4>
+
+                    </div>
+
+
+                    <div class="form-check form-switch mb-4">
+
+
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            id="destacada"
+                            name="destacada"
+                        >
+
+
+                        <label
+                            class="form-check-label"
+                            for="destacada"
+                        >
+
+                            Mostrar en inicio
+
+                        </label>
+
+
+                    </div>
+
+
+
+                    <label class="form-label">
+
+                        Estado
+
+                    </label>
+
+
+                    <select
+                        name="estado"
+                        class="form-select form-control-dark"
+                    >
+
+                        <option value="publicada">
+
+                            Publicada
+
+                        </option>
+
+
+                        <option value="oculta">
+
+                            Oculta
+
+                        </option>
+
+
+                    </select>
+
+
+                </div>
+
+
+
+                <div class="dashboard-card">
+
+
+                    <div class="d-flex align-items-center mb-3">
+
+
+                        <i class="bi bi-lightbulb text-danger fs-4 me-2"></i>
+
+
+                        <h4 class="mb-0">
+
+                            Flujo recomendado
+
+                        </h4>
+
+
+                    </div>
+
+
+                    <ol class="text-secondary mb-0">
+
+
+                        <li>
+
+                            Importar datos desde TMDB.
+
+                        </li>
+
+
+                        <li>
+
+                            Revisar información.
+
+                        </li>
+
+
+                        <li>
+
+                            Configurar reproducción.
+
+                        </li>
+
+
+                        <li>
+
+                            Publicar contenido.
+
+                        </li>
+
+
+                    </ol>
+
+
+                </div>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class="mt-5 d-flex gap-3">
+
+
+            <button
+                type="submit"
+                class="btn btn-danger btn-lg"
+            >
+
+                <i class="bi bi-check-circle"></i>
+
+                Guardar película
+
+            </button>
+
+
+
+            <a
+                href="{{ url_for('admin.peliculas_admin') }}"
+                class="btn btn-outline-secondary btn-lg"
+            >
+
+                Cancelar
+
+            </a>
+
+
+        </div>
+
+
+    </form>
+
+
+</div>
+
+
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+
+    document.addEventListener("click", (e) => {
+
+
+        if (!e.target.matches(".tmdb-import")) {
+
+            return;
+
+        }
+
+
+        setTimeout(() => {
+
+
+            const resultados =
+                document.getElementById(
+                    "tmdb-results"
+                );
+
+
+            if (resultados) {
+
+                resultados.innerHTML = "";
+
+            }
+
+
+            const buscador =
+                document.getElementById(
+                    "tmdb-query"
+                );
+
+
+            if (buscador) {
+
+                buscador.value = "";
+
+            }
+
+
+        }, 250);
+
+
+    });
+
+
+});
+
+
+</script>
+
+
+{% include 'partials/footer.html' %}
+
+
+{% endblock %}

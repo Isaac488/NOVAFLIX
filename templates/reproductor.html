@@ -1,0 +1,268 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<div class="watch-page">
+
+    <!-- Barra superior -->
+
+    <header class="watch-header">
+
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+
+                <a
+                    href="/pelicula/{{ pelicula.id }}"
+                    class="btn btn-outline-light"
+                >
+
+                    <i class="bi bi-arrow-left"></i>
+
+                    Volver
+
+                </a>
+
+                <h3 class="m-0 text-danger fw-bold">
+
+                    NOVAFLIX
+
+                </h3>
+
+            </div>
+
+        </div>
+
+    </header>
+
+    <!-- Contenido -->
+
+    <section class="container py-5">
+
+        <div class="row g-5">
+
+            <!-- Reproductor -->
+
+            <div class="col-lg-9">
+
+                <div class="player-container">
+
+                    <div id="player">
+
+                        <div class="player-loading">
+
+                            <div class="spinner-border text-danger"></div>
+
+                            <h4 class="mt-4">
+
+                                Preparando reproducción...
+
+                            </h4>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="mt-4">
+
+                    <h1 class="fw-bold">
+
+                        {{ pelicula.titulo }}
+
+                    </h1>
+
+                    <div class="d-flex gap-4 mt-3 flex-wrap">
+
+                        {% if pelicula.anio %}
+
+                        <span>
+
+                            <i class="bi bi-calendar text-danger"></i>
+
+                            {{ pelicula.anio }}
+
+                        </span>
+
+                        {% endif %}
+
+                        {% if pelicula.duracion %}
+
+                        <span>
+
+                            <i class="bi bi-clock text-danger"></i>
+
+                            {{ pelicula.duracion }} min
+
+                        </span>
+
+                        {% endif %}
+
+                        {% if pelicula.calificacion %}
+
+                        <span>
+
+                            <i class="bi bi-star-fill text-warning"></i>
+
+                            {{ pelicula.calificacion }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                    <hr>
+
+                    <p class="text-secondary">
+
+                        {{ pelicula.descripcion }}
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Lateral -->
+
+            <div class="col-lg-3">
+
+                <div class="watch-sidebar">
+
+                    {% if pelicula.poster %}
+
+                    <img
+                        src="{{ pelicula.poster }}"
+                        class="img-fluid rounded shadow"
+                    >
+
+                    {% endif %}
+
+                    <div class="mt-4">
+
+                        <h5>
+
+                            Información
+
+                        </h5>
+
+                        <ul class="list-group list-group-flush">
+
+                            <li class="list-group-item bg-transparent text-light">
+
+                                Estado
+
+                                <span class="float-end text-success">
+
+                                    Disponible
+
+                                </span>
+
+                            </li>
+
+                            <li class="list-group-item bg-transparent text-light">
+
+                                Calidad
+
+                                <span class="float-end">
+
+                                    HD
+
+                                </span>
+
+                            </li>
+
+                            <li class="list-group-item bg-transparent text-light">
+
+                                Audio
+
+                                <span class="float-end">
+
+                                    Español
+
+                                </span>
+
+                            </li>
+
+                        </ul>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Relacionadas -->
+
+    {% if relacionadas %}
+
+    <section class="container pb-5">
+
+        <h3 class="mb-4">
+
+            Continuar explorando
+
+        </h3>
+
+        <div class="row g-4">
+
+            {% for pelicula in relacionadas %}
+
+            <div class="col-lg-3 col-md-4 col-6">
+
+                <a
+                    href="/pelicula/{{ pelicula.id }}"
+                    class="text-decoration-none"
+                >
+
+                    <div class="card bg-dark border-0 movie-card">
+
+                        {% if pelicula.poster %}
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            class="card-img-top"
+                        >
+
+                        {% endif %}
+
+                        <div class="card-body">
+
+                            <h6 class="text-center text-white">
+
+                                {{ pelicula.titulo }}
+
+                            </h6>
+
+                        </div>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+</div>
+
+<div
+    id="novaflix-player"
+    data-pelicula="{{ pelicula.id }}"
+></div>
+
+<script src="{{ url_for('static', filename='js/player.js') }}"></script>
+
+{% endblock %}

@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Sesión finalizada | NOVAFLIX
+{% endblock %}
+
+{% block content %}
+
+<div class="container py-5 fade-in">
+
+    <div class="row justify-content-center">
+
+        <div class="col-12 col-md-8 col-lg-5">
+
+            <div class="card shadow-soft">
+
+                <div class="card-body p-4 p-lg-5 text-center">
+
+                    <i class="bi bi-shield-lock-fill text-danger fs-1"></i>
+
+                    <h1 class="h3 mt-3 mb-3">
+
+                        Sesión finalizada
+
+                    </h1>
+
+                    <p>
+
+                        Por motivos de seguridad, tu sesión se cerró automáticamente
+                        tras un periodo prolongado de inactividad. Vuelve a iniciar
+                        sesión para continuar utilizando NOVAFLIX.
+
+                    </p>
+
+                    <div class="alert alert-warning my-4">
+
+                        <i class="bi bi-clock-history me-2"></i>
+
+                        Serás redirigido automáticamente en
+
+                        <strong id="countdown">
+
+                            5
+
+                        </strong>
+
+                        segundos.
+
+                    </div>
+
+                    <div class="spinner-border text-danger mb-4" role="status">
+
+                        <span class="visually-hidden">
+
+                            Cargando...
+
+                        </span>
+
+                    </div>
+
+                    <a
+                        href="/login"
+                        class="btn btn-danger w-100">
+
+                        <i class="bi bi-box-arrow-in-right me-2"></i>
+
+                        Iniciar sesión
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+
+let segundos = 5;
+
+const contador = document.getElementById("countdown");
+
+const intervalo = setInterval(() => {
+
+    segundos--;
+
+    contador.textContent = segundos;
+
+    if (segundos <= 0) {
+
+        clearInterval(intervalo);
+
+        window.location.href = "/login";
+
+    }
+
+}, 1000);
+
+</script>
+
+{% endblock %}

@@ -1,0 +1,800 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+
+<!-- HEADER -->
+
+<section class="catalog-header">
+
+    <div class="container">
+
+        <div class="catalog-header-content">
+
+            <h1>
+
+                <i class="bi bi-collection-play-fill"></i>
+
+                Catálogo de Películas
+
+            </h1>
+
+            <p>
+
+                Explora todo el contenido disponible en NOVAFLIX.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="container py-5">
+
+
+    <!-- FILTROS PRINCIPALES -->
+
+    <section class="catalog-filters">
+
+
+        <div class="catalog-filters-title">
+
+            <i class="bi bi-funnel-fill"></i>
+
+            Filtros de búsqueda
+
+        </div>
+
+
+
+        <!-- FILTROS RAPIDOS -->
+
+        <div class="quick-filters">
+
+
+            <button
+                class="quick-filter-btn active"
+                data-letter="ALL"
+            >
+
+                Todas
+
+            </button>
+
+
+            {% for letra in "ABCDEFGHIJKLMNOPQRSTUVWXYZ" %}
+
+            <button
+                class="quick-filter-btn"
+                data-letter="{{ letra }}"
+            >
+
+                {{ letra }}
+
+            </button>
+
+
+            {% endfor %}
+
+
+            <button
+                class="quick-filter-btn"
+                data-letter="#"
+            >
+
+                #
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- FILTROS AVANZADOS -->
+
+        <div class="advanced-filters">
+
+
+            <div class="filter-group">
+
+
+                <label>
+
+                    Ordenar
+
+                </label>
+
+
+                <select
+                    id="catalog-sort"
+                    class="form-select form-control-dark"
+                >
+
+                    <option value="title-asc">
+
+                        Título A-Z
+
+                    </option>
+
+                    <option value="title-desc">
+
+                        Título Z-A
+
+                    </option>
+
+                    <option value="year-desc">
+
+                        Más recientes
+
+                    </option>
+
+                    <option value="year-asc">
+
+                        Más antiguas
+
+                    </option>
+
+                    <option value="rating-desc">
+
+                        Mejor calificadas
+
+                    </option>
+
+
+                    <option value="rating-asc">
+
+                        Menor calificación
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+            <div class="filter-group">
+
+
+                <label>
+
+                    Año
+
+                </label>
+
+
+                <select
+                    id="filter-year"
+                    class="form-select form-control-dark"
+                >
+
+
+                    <option value="">
+
+                        Todos
+
+                    </option>
+
+
+                    {% for pelicula in peliculas|sort(attribute='anio', reverse=True) %}
+
+
+                        {% if pelicula.anio %}
+
+
+                        <option value="{{ pelicula.anio }}">
+
+                            {{ pelicula.anio }}
+
+                        </option>
+
+
+                        {% endif %}
+
+
+                    {% endfor %}
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+            <div class="filter-group">
+
+
+                <label>
+
+                    Categoría
+
+                </label>
+
+
+                <select
+                    id="filter-category"
+                    class="form-select form-control-dark"
+                >
+
+                    <option value="">
+
+                        Todas
+
+                    </option>
+
+
+                    {% for categoria in categorias %}
+
+
+                    <option value="{{ categoria.nombre|lower }}">
+
+                        {{ categoria.nombre }}
+
+                    </option>
+
+
+                    {% endfor %}
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+            <div class="filter-group">
+
+
+                <label>
+
+                    Duración
+
+                </label>
+
+
+                <select
+                    id="filter-duration"
+                    class="form-select form-control-dark"
+                >
+
+                    <option value="">
+
+                        Todas
+
+                    </option>
+
+
+                    <option value="short">
+
+                        Menos de 90 min
+
+                    </option>
+
+
+                    <option value="medium">
+
+                        90 - 120 min
+
+                    </option>
+
+
+                    <option value="long">
+
+                        Más de 120 min
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+
+
+            <div class="filter-group">
+
+
+                <label>
+
+                    Calificación
+
+                </label>
+
+
+                <select
+                    id="filter-rating"
+                    class="form-select form-control-dark"
+                >
+
+                    <option value="">
+
+                        Todas
+
+                    </option>
+
+
+                    <option value="9">
+
+                        ★ 9+
+
+                    </option>
+
+
+                    <option value="8">
+
+                        ★ 8+
+
+                    </option>
+
+
+                    <option value="7">
+
+                        ★ 7+
+
+                    </option>
+
+
+                    <option value="6">
+
+                        ★ 6+
+
+                    </option>
+
+
+                    <option value="5">
+
+                        ★ 5+
+
+                    </option>
+
+
+                </select>
+
+
+            </div>
+
+
+
+        </div>
+
+
+
+        <!-- DESTACADAS -->
+
+        <div class="filter-checkbox">
+
+
+            <input
+                type="checkbox"
+                id="filter-featured"
+            >
+
+
+            <label for="filter-featured">
+
+                Mostrar solamente destacadas
+
+            </label>
+
+
+        </div>
+
+
+
+        <div class="filter-actions">
+
+
+            <button
+                id="catalog-reset"
+                class="btn btn-outline-danger"
+            >
+
+                <i class="bi bi-arrow-counterclockwise"></i>
+
+                Limpiar filtros
+
+            </button>
+
+
+        </div>
+
+
+
+    </section>
+
+    
+    <!-- CONTADOR -->
+
+    <div class="catalog-stats mb-4">
+
+
+        <h5 id="catalog-showing">
+
+            0
+
+        </h5>
+
+
+        <span>
+
+            de
+
+        </span>
+
+
+        <span>
+
+            <strong id="catalog-results">
+
+                {{ peliculas|length }}
+
+            </strong>
+
+            películas disponibles
+
+        </span>
+
+
+    </div>
+
+
+
+
+
+    <!-- GRID -->
+
+    <div
+        id="catalog-grid"
+        class="row g-4"
+    >
+
+
+        {% for pelicula in peliculas %}
+
+
+        <div
+            class="col-xl-3 col-lg-4 col-md-6 catalog-item"
+            
+            data-title="{{ pelicula.titulo|lower }}"
+
+            data-letter="{{ pelicula.titulo[0]|upper }}"
+
+            data-year="{{ pelicula.anio or 0 }}"
+
+            data-rating="{{ pelicula.calificacion or 0 }}"
+
+            data-duration="{{ pelicula.duracion or 0 }}"
+
+            data-featured="{{ 1 if pelicula.destacada else 0 }}"
+
+            data-category="{% for categoria in pelicula.categorias %}{{ categoria.nombre|lower }} {% endfor %}"
+        >
+
+
+            <article class="movie-card">
+
+
+
+                <!-- POSTER -->
+
+
+                <a
+                    href="{{ url_for('peliculas.pelicula', id=pelicula.id) }}"
+                    class="movie-poster-link"
+                >
+
+
+                    <div class="position-relative">
+
+
+                        {% if pelicula.poster %}
+
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            alt="{{ pelicula.titulo }}"
+                            class="movie-poster"
+                            loading="lazy"
+                        >
+
+
+                        {% else %}
+
+
+                        <div class="poster-placeholder">
+
+
+                            <i class="bi bi-film"></i>
+
+
+                        </div>
+
+
+                        {% endif %}
+
+
+
+
+                        <!-- BADGES -->
+
+
+                        {% if pelicula.destacada %}
+
+
+                        <div class="movie-badges">
+
+
+                            <span class="movie-badge badge-top">
+
+
+                                <i class="bi bi-star-fill"></i>
+
+                                Destacada
+
+
+                            </span>
+
+
+                        </div>
+
+
+                        {% endif %}
+
+
+
+
+
+
+                        <!-- PLAY -->
+
+
+                        <div class="movie-play">
+
+
+                            <i class="bi bi-play-circle-fill"></i>
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+                </a>
+
+
+
+
+
+
+                <!-- INFORMACIÓN -->
+
+
+                <div class="movie-info">
+
+
+                    <h5 class="movie-title">
+
+
+                        {{ pelicula.titulo }}
+
+
+                    </h5>
+
+
+
+
+
+                    <div class="movie-meta">
+
+
+                        <span>
+
+
+                            <i class="bi bi-calendar3"></i>
+
+
+                            {{ pelicula.anio or "-" }}
+
+
+                        </span>
+
+
+
+                        <span>
+
+
+                            <i class="bi bi-clock"></i>
+
+
+                            {{ pelicula.duracion or "-" }} min
+
+
+                        </span>
+
+
+                    </div>
+
+
+
+
+
+                    <div class="movie-rating mt-2">
+
+
+                        {% if pelicula.calificacion %}
+
+
+                        <i class="bi bi-star-fill"></i>
+
+
+                        {{ "%.1f"|format(pelicula.calificacion) }}
+
+
+
+                        {% else %}
+
+
+                        <span class="text-muted">
+
+
+                            Sin calificación
+
+
+                        </span>
+
+
+
+                        {% endif %}
+
+
+                    </div>
+
+
+
+
+
+
+
+                    {% if pelicula.categorias %}
+
+
+                    <div class="mt-3 d-flex flex-wrap gap-2">
+
+
+                        {% for categoria in pelicula.categorias %}
+
+
+                        <span class="badge bg-dark border border-secondary">
+
+
+                            {{ categoria.nombre }}
+
+
+                        </span>
+
+
+                        {% endfor %}
+
+
+
+                    </div>
+
+
+                    {% endif %}
+
+
+
+                </div>
+
+
+
+
+            </article>
+
+
+
+        </div>
+
+
+
+        {% else %}
+
+
+
+        <div class="col-12">
+
+
+            <div class="catalog-empty">
+
+
+                <i class="bi bi-film"></i>
+
+
+                <h4>
+
+                    No hay películas disponibles
+
+                </h4>
+
+
+                <p>
+
+                    Actualmente no existen títulos registrados en NOVAFLIX.
+
+                </p>
+
+
+            </div>
+
+
+        </div>
+
+
+
+        {% endfor %}
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- PAGINACIÓN -->
+
+
+    <div class="catalog-pagination">
+
+
+        <nav>
+
+
+            <ul
+                id="catalog-pagination"
+                class="pagination"
+            >
+
+
+            </ul>
+
+
+        </nav>
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+{% include 'partials/footer.html' %}
+
+
+{% endblock %}

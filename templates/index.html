@@ -1,0 +1,526 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<!-- ==================================================
+= HERO PRINCIPAL
+================================================== -->
+
+{% if peliculas %}
+
+<section
+    class="hero hero-home"
+    {% if peliculas[0].backdrop %}
+    style="
+        background-image:
+        linear-gradient(
+            rgba(0,0,0,.35),
+            rgba(0,0,0,.70),
+            rgba(17,17,17,.98)
+        ),
+        url('{{ peliculas[0].backdrop }}');
+    "
+    {% endif %}
+>
+
+    <div class="hero-overlay">
+
+        <div class="container">
+
+            <div class="row align-items-center min-vh-100">
+
+                <div class="col-lg-7">
+
+                    <span class="badge bg-danger px-3 py-2 mb-3">
+
+                        <i class="bi bi-fire me-2"></i>
+
+                        Película destacada
+
+                    </span>
+
+                    <h1 class="display-3 fw-bold mb-4">
+
+                        {{ peliculas[0].titulo }}
+
+                    </h1>
+
+                    <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+
+                        {% if peliculas[0].calificacion %}
+
+                        <span class="text-warning fw-semibold">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            {{ peliculas[0].calificacion|round(1) }}
+
+                        </span>
+
+                        {% endif %}
+
+                        {% if peliculas[0].anio %}
+
+                        <span class="text-light">
+
+                            {{ peliculas[0].anio }}
+
+                        </span>
+
+                        {% endif %}
+
+                        <span class="badge bg-dark border">
+
+                            HD
+
+                        </span>
+
+                    </div>
+
+                    {% if peliculas[0].descripcion %}
+
+                    <p class="lead mb-5">
+
+                        {{ peliculas[0].descripcion[:320] }}
+
+                        {% if peliculas[0].descripcion|length > 320 %}
+
+                        ...
+
+                        {% endif %}
+
+                    </p>
+
+                    {% endif %}
+
+                    <div class="d-flex flex-wrap gap-3">
+
+                        <a
+                            href="/pelicula/{{ peliculas[0].id }}"
+                            class="btn btn-danger btn-lg px-4"
+                        >
+
+                            <i class="bi bi-play-fill me-2"></i>
+
+                            Ver ahora
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endif %}
+
+<!-- ==================================================
+= ESTRENOS RECIENTES
+================================================== -->
+
+<section class="container py-5 fade-in">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="mb-1">
+
+                <i class="bi bi-film text-danger me-2"></i>
+
+                Estrenos recientes
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Las últimas películas agregadas al catálogo.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div
+        class="d-flex flex-nowrap gap-4 overflow-auto pb-3"
+        style="scrollbar-width:none;"
+    >
+
+        {% for pelicula in peliculas[:10] %}
+
+        <div
+            style="
+                min-width:260px;
+                max-width:260px;
+            "
+        >
+
+            <div class="movie-card h-100">
+
+                <div class="position-relative">
+
+                    {% if pelicula.poster %}
+
+                    <a
+                        href="/pelicula/{{ pelicula.id }}"
+                        class="movie-poster-link"
+                    >
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            class="movie-poster"
+                            alt="{{ pelicula.titulo }}"
+                        >
+
+                    </a>
+
+                    {% else %}
+
+                    <div class="poster-placeholder">
+
+                        <i class="bi bi-film"></i>
+
+                    </div>
+
+                    {% endif %}
+
+                    <div class="movie-play">
+
+                        <i class="bi bi-play-circle-fill"></i>
+
+                    </div>
+
+                    <div class="movie-badges">
+
+                        <span class="movie-badge badge-hd">
+
+                            HD
+
+                        </span>
+
+                        {% if pelicula.calificacion and pelicula.calificacion >= 8 %}
+
+                        <span class="movie-badge badge-top">
+
+                            TOP
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+                <div class="movie-info">
+
+                    <h5 class="movie-title">
+
+                        {{ pelicula.titulo }}
+
+                    </h5>
+
+                    <div class="movie-meta">
+
+                        <span>
+
+                            {{ pelicula.anio }}
+
+                        </span>
+
+                        {% if pelicula.calificacion %}
+
+                        <span class="movie-rating">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            {{ pelicula.calificacion|round(1) }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- ==================================================
+= MEJOR VALORADAS
+================================================== -->
+
+<section class="container py-2 fade-in">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="mb-1">
+
+                <i class="bi bi-star-fill text-warning me-2"></i>
+
+                Mejor valoradas
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Las favoritas de la comunidad.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div
+        class="d-flex flex-nowrap gap-4 overflow-auto pb-3"
+        style="scrollbar-width:none;"
+    >
+
+        {% for pelicula in peliculas %}
+
+        <div
+            style="
+                min-width:240px;
+                max-width:240px;
+            "
+        >
+
+            <div class="movie-card h-100">
+
+                <div class="position-relative">
+
+                    {% if pelicula.poster %}
+
+                    <a
+                        href="/pelicula/{{ pelicula.id }}"
+                        class="movie-poster-link"
+                    >
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            class="movie-poster"
+                            alt="{{ pelicula.titulo }}"
+                        >
+
+                    </a>
+
+                    {% else %}
+
+                    <div class="poster-placeholder">
+
+                        <i class="bi bi-film"></i>
+
+                    </div>
+
+                    {% endif %}
+
+                    <div class="movie-play">
+
+                        <i class="bi bi-play-circle-fill"></i>
+
+                    </div>
+
+                    <div class="movie-featured">
+
+                        <i class="bi bi-star-fill"></i>
+
+                    </div>
+
+                </div>
+
+                <div class="movie-info">
+
+                    <h5 class="movie-title">
+
+                        {{ pelicula.titulo }}
+
+                    </h5>
+
+                    <div class="movie-meta">
+
+                        <span>
+
+                            {{ pelicula.anio }}
+
+                        </span>
+
+                        {% if pelicula.calificacion %}
+
+                        <span class="movie-rating">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            {{ pelicula.calificacion|round(1) }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+<!-- ==================================================
+= DESCUBRE MÁS
+================================================== -->
+
+<section class="container py-2 pb-5 fade-in">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="mb-1">
+
+                <i class="bi bi-collection-play text-danger me-2"></i>
+
+                Descubre más
+
+            </h2>
+
+            <p class="text-muted mb-0">
+
+                Sigue explorando el catálogo de NOVAFLIX.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div
+        class="d-flex flex-nowrap gap-4 overflow-auto pb-3"
+        style="scrollbar-width:none;"
+    >
+
+        {% for pelicula in peliculas %}
+
+        <div
+            style="
+                min-width:210px;
+                max-width:210px;
+            "
+        >
+
+            <div class="movie-card h-100">
+
+                <div class="position-relative">
+
+                    {% if pelicula.poster %}
+
+                    <a
+                        href="/pelicula/{{ pelicula.id }}"
+                        class="movie-poster-link"
+                    >
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            class="movie-poster"
+                            alt="{{ pelicula.titulo }}"
+                        >
+
+                    </a>
+
+                    {% else %}
+
+                    <div class="poster-placeholder">
+
+                        <i class="bi bi-film"></i>
+
+                    </div>
+
+                    {% endif %}
+
+                    <div class="movie-play">
+
+                        <i class="bi bi-play-circle-fill"></i>
+
+                    </div>
+
+                    {% if loop.index <= 3 %}
+
+                    <div class="ribbon-new">
+
+                        NUEVO
+
+                    </div>
+
+                    {% endif %}
+
+                </div>
+
+                <div class="movie-info">
+
+                    <h5 class="movie-title">
+
+                        {{ pelicula.titulo }}
+
+                    </h5>
+
+                    <div class="movie-meta">
+
+                        <span>
+
+                            {{ pelicula.anio }}
+
+                        </span>
+
+                        {% if pelicula.calificacion %}
+
+                        <span class="movie-rating">
+
+                            <i class="bi bi-star-fill"></i>
+
+                            {{ pelicula.calificacion|round(1) }}
+
+                        </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
+{% include 'partials/footer.html' %}
+
+{% endblock %}

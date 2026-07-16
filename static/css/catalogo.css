@@ -1,0 +1,1389 @@
+/*==================================================
+=            HERO / ENCABEZADOS
+==================================================*/
+
+.catalog-header{
+
+    padding:55px 0 30px;
+
+    background:linear-gradient(
+
+        180deg,
+
+        rgba(229,9,20,.12),
+
+        transparent
+
+    );
+
+    border-bottom:1px solid #222;
+
+}
+
+.catalog-header-content{
+
+    text-align:center;
+
+}
+
+.catalog-header-content h1{
+
+    font-size:2.35rem;
+
+    font-weight:700;
+
+    margin-bottom:10px;
+
+}
+
+.catalog-header-content p{
+
+    color:var(--text-muted);
+
+    font-size:1.05rem;
+
+}
+
+
+/*==================================================
+=            CONTADOR
+==================================================*/
+
+.catalog-stats{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    padding:14px;
+
+}
+
+.catalog-stats h5{
+
+    color:var(--primary);
+
+    margin:0;
+
+    font-size:1.7rem;
+
+}
+
+.catalog-stats span{
+
+    color:var(--text-muted);
+
+}
+
+
+/*==================================================
+=            GRID
+==================================================*/
+
+#catalog-grid{
+
+    min-height:600px;
+
+}
+
+.catalog-item{
+
+    transition:
+
+        opacity .25s ease,
+
+        transform .25s ease;
+
+}
+
+.catalog-item.hidden{
+
+    display:none;
+
+}
+
+
+/*==================================================
+=            TARJETAS
+==================================================*/
+
+.movie-card{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    overflow:hidden;
+
+    transition:
+
+        transform .25s ease,
+
+        box-shadow .25s ease,
+
+        border-color .25s ease;
+
+    height:100%;
+
+}
+
+.movie-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:var(--primary);
+
+    box-shadow:var(--shadow);
+
+}
+
+
+/*==================================================
+=            POSTER
+==================================================*/
+
+.movie-poster-link{
+
+    display:block;
+
+    overflow:hidden;
+
+}
+
+.movie-poster{
+
+    width:100%;
+
+    aspect-ratio:2/3;
+
+    object-fit:cover;
+
+    transition:
+
+        transform .35s ease;
+
+}
+
+.movie-card:hover .movie-poster{
+
+    transform:scale(1.05);
+
+}
+
+
+/*==================================================
+=            INFORMACIÓN
+==================================================*/
+
+.movie-info{
+
+    padding:18px;
+
+}
+
+.movie-title{
+
+    color:#FFF;
+
+    font-size:1rem;
+
+    font-weight:600;
+
+    margin-bottom:10px;
+
+    overflow:hidden;
+
+    display:-webkit-box;
+
+    -webkit-box-orient:vertical;
+
+    line-clamp:2;
+
+    -webkit-line-clamp:2;
+
+}
+
+.movie-meta{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    color:var(--text-muted);
+
+    font-size:.92rem;
+
+}
+
+.movie-rating{
+
+    color:#FFD54F;
+
+}
+
+.movie-rating i{
+
+    margin-right:4px;
+
+}
+
+/*==================================================
+=            FILTROS
+==================================================*/
+
+.catalog-filters{
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+    padding:22px;
+
+    margin-bottom:30px;
+
+}
+
+.catalog-filters-title{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-weight:600;
+
+    margin-bottom:18px;
+
+    color:#FFF;
+
+}
+
+.catalog-filters-title i{
+
+    color:var(--primary);
+
+}
+
+
+/*==================================================
+=            FILTROS RÁPIDOS
+==================================================*/
+
+.quick-filters{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:10px;
+
+    margin-bottom:25px;
+
+}
+
+.quick-filter-btn{
+
+    background:#1A1A1A;
+
+    border:1px solid #333;
+
+    color:#DDD;
+
+    min-width:42px;
+
+    height:42px;
+
+    border-radius:8px;
+
+    transition:
+
+        background .25s ease,
+
+        color .25s ease,
+
+        border-color .25s ease,
+
+        transform .25s ease;
+
+}
+
+.quick-filter-btn:hover{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    color:#FFF;
+
+    transform:translateY(-2px);
+
+}
+
+.quick-filter-btn.active{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    color:#FFF;
+
+}
+
+
+/*==================================================
+=            FILTROS AVANZADOS
+==================================================*/
+
+.advanced-filters{
+
+    display:grid;
+
+    grid-template-columns:
+
+        repeat(auto-fit,minmax(220px,1fr));
+
+    gap:18px;
+
+}
+
+.filter-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.filter-group label{
+
+    color:#DDD;
+
+    margin-bottom:8px;
+
+    font-size:.92rem;
+
+    font-weight:600;
+
+}
+
+.filter-group select{
+
+    background:#1B1B1B;
+
+}
+
+
+/*==================================================
+=            CHECKBOX DESTACADAS
+==================================================*/
+
+.filter-checkbox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    margin-top:12px;
+
+}
+
+.filter-checkbox input{
+
+    accent-color:var(--primary);
+
+    width:18px;
+
+    height:18px;
+
+}
+
+.filter-checkbox label{
+
+    margin:0;
+
+}
+
+
+/*==================================================
+=            BOTONES
+==================================================*/
+
+.filter-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:12px;
+
+    margin-top:22px;
+
+}
+
+.filter-actions .btn{
+
+    min-width:140px;
+
+}
+
+
+/*==================================================
+=            PAGINACIÓN
+==================================================*/
+
+.catalog-pagination{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:45px;
+
+}
+
+.catalog-pagination .page-btn{
+
+    width:42px;
+
+    height:42px;
+
+    border-radius:8px;
+
+    border:1px solid #333;
+
+    background:#1A1A1A;
+
+    color:#DDD;
+
+    transition:
+
+        background .25s ease,
+
+        border-color .25s ease,
+
+        transform .25s ease;
+
+}
+
+.catalog-pagination .page-btn:hover{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    color:#FFF;
+
+}
+
+.catalog-pagination .page-btn.active{
+
+    background:var(--primary);
+
+    border-color:var(--primary);
+
+    color:#FFF;
+
+}
+
+
+/*==================================================
+=            MENSAJE SIN RESULTADOS
+==================================================*/
+
+.catalog-empty{
+
+    text-align:center;
+
+    padding:70px 20px;
+
+    background:var(--card);
+
+    border:1px solid var(--border);
+
+    border-radius:var(--radius-md);
+
+}
+
+.catalog-empty i{
+
+    font-size:3rem;
+
+    color:#666;
+
+    margin-bottom:15px;
+
+}
+
+.catalog-empty h4{
+
+    margin-bottom:10px;
+
+}
+
+.catalog-empty p{
+
+    margin:0;
+
+}
+
+/*==================================================
+=            EFECTO PREMIUM DE LAS CARDS
+==================================================*/
+
+.movie-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+}
+
+.movie-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:linear-gradient(
+
+        to top,
+
+        rgba(0,0,0,.85),
+
+        rgba(0,0,0,.10),
+
+        transparent
+
+    );
+
+    opacity:0;
+
+    transition:opacity .35s ease;
+
+    pointer-events:none;
+
+}
+
+.movie-card:hover::before{
+
+    opacity:1;
+
+}
+
+.movie-card:hover{
+
+    transform:
+
+        translateY(-10px)
+
+        scale(1.02);
+
+}
+
+
+/*==================================================
+=            OVERLAY
+==================================================*/
+
+.movie-overlay{
+
+    position:absolute;
+
+    left:0;
+
+    right:0;
+
+    bottom:0;
+
+    padding:20px;
+
+    color:#FFF;
+
+    opacity:0;
+
+    transform:translateY(20px);
+
+    transition:
+
+        opacity .30s ease,
+
+        transform .30s ease;
+
+    z-index:5;
+
+}
+
+.movie-card:hover .movie-overlay{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+.movie-overlay h6{
+
+    margin-bottom:8px;
+
+    font-weight:600;
+
+}
+
+.movie-overlay p{
+
+    color:#DDD;
+
+    font-size:.85rem;
+
+    margin-bottom:15px;
+
+}
+
+
+/*==================================================
+=            BOTONES DEL OVERLAY
+==================================================*/
+
+.movie-overlay-buttons{
+
+    display:flex;
+
+    gap:10px;
+
+}
+
+.movie-overlay-buttons .btn{
+
+    flex:1;
+
+}
+
+
+/*==================================================
+=            BADGES
+==================================================*/
+
+.movie-badges{
+
+    position:absolute;
+
+    top:12px;
+
+    left:12px;
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:6px;
+
+    z-index:20;
+
+}
+
+.movie-badge{
+
+    padding:4px 10px;
+
+    border-radius:20px;
+
+    font-size:.72rem;
+
+    font-weight:600;
+
+    backdrop-filter:blur(6px);
+
+}
+
+.badge-hd{
+
+    background:#0D6EFD;
+
+    color:#FFF;
+
+}
+
+.badge-4k{
+
+    background:#6F42C1;
+
+    color:#FFF;
+
+}
+
+.badge-new{
+
+    background:var(--primary);
+
+    color:#FFF;
+
+}
+
+.badge-top{
+
+    background:#FFC107;
+
+    color:#111;
+
+}
+
+
+/*==================================================
+=            DESTACADA
+==================================================*/
+
+.movie-featured{
+
+    position:absolute;
+
+    top:14px;
+
+    right:14px;
+
+    z-index:20;
+
+    width:36px;
+
+    height:36px;
+
+    border-radius:50%;
+
+    background:rgba(229,9,20,.95);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#FFF;
+
+    box-shadow:
+
+        0 5px 20px
+
+        rgba(229,9,20,.45);
+
+}
+
+
+/*==================================================
+=            SOMBRA DEL POSTER
+==================================================*/
+
+.movie-poster{
+
+    box-shadow:
+
+        0 12px 30px
+
+        rgba(0,0,0,.30);
+
+}
+
+
+/*==================================================
+=            PLACEHOLDER
+==================================================*/
+
+.poster-placeholder{
+
+    aspect-ratio:2/3;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:#202020;
+
+    color:#555;
+
+    font-size:3rem;
+
+}
+
+
+/*==================================================
+=            SKELETON
+==================================================*/
+
+.movie-skeleton{
+
+    background:#222;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+.movie-skeleton-poster{
+
+    aspect-ratio:2/3;
+
+    background:linear-gradient(
+
+        90deg,
+
+        #222,
+
+        #303030,
+
+        #222
+
+    );
+
+    background-size:300%;
+
+    animation:skeletonMove 1.4s infinite;
+
+}
+
+.movie-skeleton-text{
+
+    height:16px;
+
+    margin:15px;
+
+    border-radius:8px;
+
+    background:linear-gradient(
+
+        90deg,
+
+        #222,
+
+        #303030,
+
+        #222
+
+    );
+
+    background-size:300%;
+
+    animation:skeletonMove 1.4s infinite;
+
+}
+
+@keyframes skeletonMove{
+
+    from{
+
+        background-position:300% 0;
+
+    }
+
+    to{
+
+        background-position:-300% 0;
+
+    }
+
+}
+
+
+/*==================================================
+=            ANIMACIÓN DE APARICIÓN
+==================================================*/
+
+.catalog-item{
+
+    animation:catalogFade .45s ease;
+
+}
+
+@keyframes catalogFade{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(18px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+/*==================================================
+=            TRANSICIÓN DE FILTROS
+==================================================*/
+
+.catalog-hidden{
+
+    display:none !important;
+
+}
+
+.catalog-fade{
+
+    opacity:.25;
+
+    transition:opacity .25s ease;
+
+}
+
+
+/*==================================================
+=            EFECTO PLAY
+==================================================*/
+
+.movie-play{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    pointer-events:none;
+
+    opacity:0;
+
+    transition:.30s ease;
+
+}
+
+.movie-play i{
+
+    font-size:4rem;
+
+    color:white;
+
+    text-shadow:
+
+        0 0 20px rgba(0,0,0,.6);
+
+}
+
+.movie-card:hover .movie-play{
+
+    opacity:1;
+
+}
+
+/*==================================================
+=            RIBBON "NUEVO"
+==================================================*/
+
+.ribbon-new{
+
+    position:absolute;
+
+    top:16px;
+
+    left:-34px;
+
+    width:120px;
+
+    text-align:center;
+
+    background:var(--primary);
+
+    color:#FFF;
+
+    font-size:.72rem;
+
+    font-weight:700;
+
+    padding:5px 0;
+
+    transform:rotate(-45deg);
+
+    z-index:30;
+
+    letter-spacing:.5px;
+
+}
+
+
+/*==================================================
+=            EFECTO BRILLO
+==================================================*/
+
+.movie-card::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:-120%;
+
+    left:-60%;
+
+    width:45%;
+
+    height:320%;
+
+    background:
+
+        linear-gradient(
+
+            90deg,
+
+            transparent,
+
+            rgba(255,255,255,.16),
+
+            transparent
+
+        );
+
+    transform:rotate(22deg);
+
+    transition:.8s;
+
+    pointer-events:none;
+
+}
+
+.movie-card:hover::after{
+
+    left:160%;
+
+}
+
+
+/*==================================================
+=            EFECTO EN IMÁGENES
+==================================================*/
+
+.movie-poster{
+
+    filter:
+
+        brightness(.96)
+
+        saturate(1);
+
+}
+
+.movie-card:hover .movie-poster{
+
+    filter:
+
+        brightness(1.05)
+
+        saturate(1.08);
+
+}
+
+
+/*==================================================
+=            BOTÓN PLAY
+==================================================*/
+
+.movie-play i{
+
+    transition:
+
+        transform .30s ease,
+
+        color .30s ease;
+
+}
+
+.movie-card:hover .movie-play i{
+
+    transform:scale(1.12);
+
+    color:#FFF;
+
+}
+
+
+/*==================================================
+=            PAGINACIÓN
+==================================================*/
+
+.catalog-pagination .page-btn{
+
+    font-weight:600;
+
+}
+
+.catalog-pagination .page-btn:disabled{
+
+    opacity:.35;
+
+    cursor:not-allowed;
+
+}
+
+.catalog-pagination .page-btn.active{
+
+    box-shadow:
+
+        0 0 16px
+
+        rgba(229,9,20,.35);
+
+}
+
+
+/*==================================================
+=            BOTÓN VOLVER ARRIBA
+==================================================*/
+
+.back-to-top{
+
+    position:fixed;
+
+    right:24px;
+
+    bottom:24px;
+
+    width:52px;
+
+    height:52px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:var(--primary);
+
+    color:#FFF;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:1.25rem;
+
+    cursor:pointer;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transform:translateY(20px);
+
+    transition:
+
+        opacity .25s ease,
+
+        transform .25s ease,
+
+        visibility .25s;
+
+    z-index:999;
+
+}
+
+.back-to-top.show{
+
+    opacity:1;
+
+    visibility:visible;
+
+    transform:translateY(0);
+
+}
+
+.back-to-top:hover{
+
+    background:var(--primary-hover);
+
+    transform:translateY(-4px);
+
+}
+
+
+/*==================================================
+=            CONTADOR
+==================================================*/
+
+.catalog-counter{
+
+    font-weight:600;
+
+    color:#FFF;
+
+}
+
+.catalog-counter span{
+
+    color:var(--primary);
+
+}
+
+
+/*==================================================
+=            EFECTOS DE FILTRADO
+==================================================*/
+
+.catalog-item{
+
+    transition:
+
+        opacity .25s ease,
+
+        transform .25s ease;
+
+}
+
+.catalog-item.filtered-out{
+
+    opacity:0;
+
+    transform:scale(.95);
+
+}
+
+
+/*==================================================
+=            TOOLTIP SIMPLE
+==================================================*/
+
+.simple-tooltip{
+
+    position:absolute;
+
+    bottom:110%;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    background:#111;
+
+    color:#FFF;
+
+    padding:6px 10px;
+
+    border-radius:6px;
+
+    font-size:.75rem;
+
+    white-space:nowrap;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+}
+
+.has-tooltip:hover .simple-tooltip{
+
+    opacity:1;
+
+}
+
+
+/*==================================================
+=            RESPONSIVE DEL CATÁLOGO
+==================================================*/
+
+@media (max-width:992px){
+
+    .catalog-header{
+
+        padding:40px 0 24px;
+
+    }
+
+    .catalog-header-content h1{
+
+        font-size:2rem;
+
+    }
+
+    .advanced-filters{
+
+        grid-template-columns:1fr;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .quick-filters{
+
+        justify-content:center;
+
+    }
+
+    .catalog-pagination{
+
+        flex-wrap:wrap;
+
+    }
+
+    .movie-overlay{
+
+        display:none;
+
+    }
+
+}
+
+@media (max-width:576px){
+
+    .catalog-header-content h1{
+
+        font-size:1.65rem;
+
+    }
+
+    .catalog-stats{
+
+        flex-direction:column;
+
+        gap:6px;
+
+    }
+
+    .quick-filter-btn{
+
+        min-width:38px;
+
+        height:38px;
+
+    }
+
+}

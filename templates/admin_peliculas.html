@@ -1,0 +1,451 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+{% include 'partials/navbar.html' %}
+
+<div class="container py-5">
+
+
+    <!-- ENCABEZADO -->
+
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
+        <div>
+
+            <h1 class="fw-bold">
+
+                <i class="bi bi-collection-play text-danger"></i>
+
+                Administrar Películas
+
+            </h1>
+
+            <p class="text-secondary mb-0">
+
+                Gestiona el contenido disponible en el catálogo de NOVAFLIX.
+
+            </p>
+
+        </div>
+
+
+        <a
+            href="/admin"
+            class="btn btn-outline-secondary"
+        >
+
+            <i class="bi bi-arrow-left"></i>
+
+            Volver
+
+        </a>
+
+
+    </div>
+
+
+
+    <!-- ACCIÓN PRINCIPAL -->
+
+    <div class="mb-4">
+
+        <a
+            href="/admin/peliculas/nueva"
+            class="btn btn-danger"
+        >
+
+            <i class="bi bi-plus-circle"></i>
+
+            Nueva Película
+
+        </a>
+
+    </div>
+
+
+
+    {% if peliculas %}
+
+
+
+    <div class="table-responsive">
+
+
+        <table class="table table-dark table-hover admin-table">
+
+
+            <thead>
+
+                <tr>
+
+
+                    <th>
+
+                        <i class="bi bi-image"></i>
+
+                        Poster
+
+                    </th>
+
+
+                    <th>
+
+                        <i class="bi bi-film"></i>
+
+                        Película
+
+                    </th>
+
+
+                    <th>
+
+                        <i class="bi bi-calendar"></i>
+
+                        Año
+
+                    </th>
+
+
+                    <th>
+
+                        <i class="bi bi-star"></i>
+
+                        Calificación
+
+                    </th>
+
+
+                    <th>
+
+                        <i class="bi bi-play-circle"></i>
+
+                        Reproducción
+
+                    </th>
+
+
+                    <th class="text-center">
+
+                        <i class="bi bi-gear"></i>
+
+                        Acciones
+
+                    </th>
+
+
+                </tr>
+
+
+            </thead>
+
+
+
+            <tbody>
+
+
+            {% for pelicula in peliculas %}
+
+
+
+                <tr>
+
+
+                    <!-- POSTER -->
+
+
+                    <td>
+
+
+                        {% if pelicula.poster %}
+
+
+                        <img
+                            src="{{ pelicula.poster }}"
+                            alt="{{ pelicula.titulo }}"
+                            class="admin-poster"
+                        >
+
+
+                        {% else %}
+
+
+                        <div class="admin-poster d-flex justify-content-center align-items-center">
+
+
+                            <i class="bi bi-film text-secondary"></i>
+
+
+                        </div>
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+                    <!-- INFORMACIÓN -->
+
+
+                    <td>
+
+
+                        <strong>
+
+                            {{ pelicula.titulo }}
+
+                        </strong>
+
+
+                        <small class="d-block text-secondary mt-1">
+
+                            {% if pelicula.tipo_video %}
+
+                                {{ pelicula.tipo_video|upper }}
+
+                            {% else %}
+
+                                Sin fuente configurada
+
+                            {% endif %}
+
+
+                        </small>
+
+
+                    </td>
+
+
+
+                    <!-- AÑO -->
+
+
+                    <td>
+
+
+                        {% if pelicula.anio %}
+
+                            {{ pelicula.anio }}
+
+                        {% else %}
+
+                            <span class="text-secondary">
+
+                                N/A
+
+                            </span>
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+                    <!-- CALIFICACIÓN -->
+
+
+                    <td>
+
+
+                        {% if pelicula.calificacion %}
+
+
+                            <span class="admin-badge admin-badge-warning">
+
+
+                                <i class="bi bi-star-fill me-1"></i>
+
+
+                                {{ pelicula.calificacion }}
+
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <span class="text-secondary">
+
+                                Sin calificación
+
+                            </span>
+
+
+                        {% endif %}
+
+
+                    </td>
+
+                    <!-- REPRODUCCIÓN -->
+
+
+                    <td>
+
+
+                        {% if pelicula.video_url %}
+
+
+                            <span class="admin-badge admin-badge-success">
+
+
+                                <i class="bi bi-check-circle me-1"></i>
+
+
+                                Configurado
+
+
+                            </span>
+
+
+                        {% else %}
+
+
+                            <span class="admin-badge admin-badge-danger">
+
+
+                                <i class="bi bi-exclamation-circle me-1"></i>
+
+
+                                Falta link
+
+
+                            </span>
+
+
+                        {% endif %}
+
+
+                    </td>
+
+
+
+                    <!-- ACCIONES -->
+
+
+                    <td class="text-center">
+
+
+                        <div class="btn-group-admin justify-content-center">
+
+
+                            <a
+                                href="/admin/peliculas/editar/{{ pelicula.id }}"
+                                class="btn btn-warning btn-action"
+                                data-bs-toggle="tooltip"
+                                title="Editar película"
+                            >
+
+                                <i class="bi bi-pencil"></i>
+
+                            </a>
+
+
+
+                            <a
+                                href="/pelicula/{{ pelicula.id }}"
+                                class="btn btn-info btn-action"
+                                data-bs-toggle="tooltip"
+                                title="Ver película"
+                                target="_blank"
+                            >
+
+                                <i class="bi bi-eye"></i>
+
+                            </a>
+
+
+
+                            <a
+                                href="/admin/peliculas/eliminar/{{ pelicula.id }}"
+                                class="btn btn-danger btn-action"
+                                onclick="return confirm('¿Estás seguro de que deseas eliminar esta película?')"
+                                data-bs-toggle="tooltip"
+                                title="Eliminar película"
+                            >
+
+                                <i class="bi bi-trash"></i>
+
+                            </a>
+
+
+                        </div>
+
+
+                    </td>
+
+
+
+                </tr>
+
+
+
+            {% endfor %}
+
+
+
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+
+
+
+    {% else %}
+
+
+
+    <!-- SIN CONTENIDO -->
+
+
+    <div class="alert alert-dark text-center py-5 rounded">
+
+
+        <i class="bi bi-inbox text-secondary" style="font-size:3rem;"></i>
+
+
+        <p class="mt-3 mb-3">
+
+            No hay películas registradas.
+
+        </p>
+
+
+
+        <a
+            href="/admin/peliculas/nueva"
+            class="btn btn-danger"
+        >
+
+            <i class="bi bi-plus-circle"></i>
+
+            Crear primera película
+
+        </a>
+
+
+    </div>
+
+
+
+    {% endif %}
+
+
+
+</div>
+
+
+
+{% include 'partials/footer.html' %}
+
+
+
+{% endblock %}
