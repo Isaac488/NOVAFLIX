@@ -1,5 +1,4 @@
 import os
-
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -15,7 +14,7 @@ class Config:
     DB_PASSWORD = os.getenv("DB_PASSWORD")
     DB_NAME = os.getenv("DB_NAME")
 
-    DB_SSL_CA = os.getenv("DB_SSL_CA")
+    DB_SSL_CA = os.getenv("DB_SSL_CA", "ca.pem")
 
 
     SQLALCHEMY_DATABASE_URI = (
@@ -34,6 +33,5 @@ class Config:
 
     SQLALCHEMY_POOL_RECYCLE = 280
     SQLALCHEMY_POOL_PRE_PING = True
-
 
     TMDB_API_KEY = os.getenv("TMDB_API_KEY")
