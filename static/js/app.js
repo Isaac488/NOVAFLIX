@@ -577,6 +577,8 @@ let pagination;
 let showingLabel;
 let totalLabel;
 
+let searchQuery = "";
+
 const ITEMS_PER_PAGE = 20;
 
 let currentPage = 1;
