@@ -19,7 +19,7 @@ NovaFlix is a web-based movie and TV series management platform designed to orga
 - CSS3
 - JavaScript (Vanilla)
 - Python (Backend)
-- SQLite
+- MySQL
 
 ## Project Structure
 
