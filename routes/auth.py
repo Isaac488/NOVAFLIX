@@ -53,6 +53,7 @@ def login():
             email=email
         ).first()
 
+
         if (
             usuario
             and
@@ -62,49 +63,74 @@ def login():
             )
         ):
 
+            # Limpiar sesión anterior
             session.clear()
 
+
+            # Crear sesión Flask
             session["user_id"] = usuario.id
 
             session["nombre"] = usuario.nombre
 
             session["rol"] = usuario.rol
 
-            # ==========================================================
-            # Generación del token de sesión
-            # ==========================================================
 
-            # Eliminar sesiones anteriores del usuario
+            # ==================================================
+            # CREACIÓN DEL TOKEN
+            # ==================================================
+
+            # Eliminar tokens anteriores del usuario
             SesionUsuario.query.filter_by(
                 usuario_id=usuario.id
-            ).delete(synchronize_session=False)
+            ).delete()
 
-            # Generar token único
+
+            # Crear token único
             token = secrets.token_urlsafe(32)
 
-            # Tiempo inicial (5 minutos)
-            tiempo_token = 5
 
             ahora = datetime.now()
 
+            tiempo_token = 5
+
+
             nueva_sesion = SesionUsuario(
+
                 usuario_id=usuario.id,
+
                 token=token,
+
                 creado_en=ahora,
+
                 ultima_actividad=ahora,
-                expira_en=ahora + timedelta(minutes=tiempo_token)
+
+                expira_en=(
+                    ahora +
+                    timedelta(
+                        minutes=tiempo_token
+                    )
+                )
+
             )
 
-            db.session.add(nueva_sesion)
+
+            db.session.add(
+                nueva_sesion
+            )
+
+
+            # Guardar token en la sesión Flask
+            session["token"] = token
+
+
             db.session.commit()
 
-            # Guardar token también en la sesión Flask
-            session["token"] = token
 
             flash(
                 f"Bienvenido, {usuario.nombre}",
                 "success"
             )
+
 
             if usuario.rol == "admin":
 
@@ -114,19 +140,19 @@ def login():
                     )
                 )
 
+
             return redirect(
                 url_for(
                     "peliculas.index"
                 )
             )
 
+
         flash(
-
             "Correo o contraseña incorrectos.",
-
             "danger"
-
         )
+
 
     return render_template(
         "login.html"
