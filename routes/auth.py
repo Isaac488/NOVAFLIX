@@ -70,6 +70,32 @@ def login():
 
             session["rol"] = usuario.rol
 
+            import secrets
+
+            token = secrets.token_urlsafe(32)
+
+            session["token"] = token
+            # SesionUsuario.query.filter_by(usuario_id=usuario.id).delete()
+
+            # token = secrets.token_urlsafe(32)
+
+            # config = Configuracion.query.first()
+            # tiempo_token = config.tiempo_token if config else 5
+
+            # ahora = datetime.now()
+
+            # nueva_sesion = SesionUsuario(
+            #     usuario_id=usuario.id,
+            #     token=token,
+            #     creado_en=ahora,
+            #     ultima_actividad=ahora,
+            #     expira_en=ahora + timedelta(minutes=tiempo_token)
+            # )
+
+            # db.session.add(nueva_sesion)
+            # db.session.commit()
+
+            # session["token"] = token
 
             flash(
                 f"Bienvenido, {usuario.nombre}",
