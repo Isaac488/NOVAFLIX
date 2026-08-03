@@ -23,8 +23,9 @@ from models import (
 from datetime import (
     datetime, 
     timedelta, 
-    secrets
 )
+
+import secrets
 
 auth_bp = Blueprint(
     "auth",
