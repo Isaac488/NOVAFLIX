@@ -80,7 +80,13 @@ def login():
 
             # token = secrets.token_urlsafe(32)
 
-            config = Configuracion.query.first()
+            # config = Configuracion.query.first()
+            try:
+                config = Configuracion.query.first()
+                print("Configuración:", config)
+            except Exception as e:
+                print("ERROR CONFIG:", e)
+                raise
             # tiempo_token = config.tiempo_token if config else 5
 
             # ahora = datetime.now()
