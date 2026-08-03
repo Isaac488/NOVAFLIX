@@ -77,7 +77,7 @@ def login():
             # Eliminar sesiones anteriores del usuario
             SesionUsuario.query.filter_by(
                 usuario_id=usuario.id
-            ).delete()
+            ).delete(synchronize_session=False)
 
             # Generar token único
             token = secrets.token_urlsafe(32)
