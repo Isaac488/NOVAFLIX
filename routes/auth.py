@@ -17,6 +17,7 @@ from werkzeug.security import (
 from models import (
     db,
     Usuario,
+    Configuracion,
     SesionUsuario
 )
 
@@ -79,7 +80,7 @@ def login():
 
             # token = secrets.token_urlsafe(32)
 
-            # config = Configuracion.query.first()
+            config = Configuracion.query.first()
             # tiempo_token = config.tiempo_token if config else 5
 
             # ahora = datetime.now()
