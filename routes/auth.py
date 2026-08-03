@@ -17,6 +17,7 @@ from werkzeug.security import (
 from models import (
     db,
     Usuario,
+    Configuracion,
     SesionUsuario
 )
 
@@ -80,9 +81,6 @@ def login():
             # Generar token único
             token = secrets.token_urlsafe(32)
 
-            # Obtener tiempo configurado
-            from models import Configuracion
-
             config = Configuracion.query.first()
             tiempo_token = config.tiempo_token if config else 5
 
@@ -97,15 +95,16 @@ def login():
             )
 
             db.session.add(nueva_sesion)
+            session["token"] = token
             db.session.commit()
 
-            # Guardar token también en la sesión Flask
-            session["token"] = token
 
             flash(
                 f"Bienvenido, {usuario.nombre}",
                 "success"
             )
+
+            print(dict(session))
 
             if usuario.rol == "admin":
 
