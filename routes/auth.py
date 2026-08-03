@@ -17,7 +17,6 @@ from werkzeug.security import (
 from models import (
     db,
     Usuario,
-    Configuracion,
     SesionUsuario
 )
 
@@ -71,38 +70,36 @@ def login():
 
             session["rol"] = usuario.rol
 
-            import secrets
+            # ==========================================================
+            # Generación del token de sesión
+            # ==========================================================
 
+            # Eliminar sesiones anteriores del usuario
+            SesionUsuario.query.filter_by(
+                usuario_id=usuario.id
+            ).delete()
+
+            # Generar token único
             token = secrets.token_urlsafe(32)
 
+            # Tiempo inicial (5 minutos)
+            tiempo_token = 5
+
+            ahora = datetime.now()
+
+            nueva_sesion = SesionUsuario(
+                usuario_id=usuario.id,
+                token=token,
+                creado_en=ahora,
+                ultima_actividad=ahora,
+                expira_en=ahora + timedelta(minutes=tiempo_token)
+            )
+
+            db.session.add(nueva_sesion)
+            db.session.commit()
+
+            # Guardar token también en la sesión Flask
             session["token"] = token
-            # SesionUsuario.query.filter_by(usuario_id=usuario.id).delete()
-
-            # token = secrets.token_urlsafe(32)
-
-            # config = Configuracion.query.first()
-            try:
-                config = Configuracion.query.first()
-                print("Configuración:", config)
-            except Exception as e:
-                print("ERROR CONFIG:", e)
-                raise
-            # tiempo_token = config.tiempo_token if config else 5
-
-            # ahora = datetime.now()
-
-            # nueva_sesion = SesionUsuario(
-            #     usuario_id=usuario.id,
-            #     token=token,
-            #     creado_en=ahora,
-            #     ultima_actividad=ahora,
-            #     expira_en=ahora + timedelta(minutes=tiempo_token)
-            # )
-
-            # db.session.add(nueva_sesion)
-            # db.session.commit()
-
-            # session["token"] = token
 
             flash(
                 f"Bienvenido, {usuario.nombre}",
