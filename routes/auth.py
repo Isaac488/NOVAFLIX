@@ -75,53 +75,29 @@ def login():
             session["rol"] = usuario.rol
 
 
-            # ==================================================
-            # CREACIÓN DEL TOKEN
-            # ==================================================
-
-            # Eliminar tokens anteriores del usuario
-            SesionUsuario.query.filter_by(
-                usuario_id=usuario.id
-            ).delete()
-
-
             # Crear token único
             token = secrets.token_urlsafe(32)
 
 
+            # Guardar token en sesión
+            session["token"] = token
+
+
+            # Crear registro de sesión en BD
             ahora = datetime.now()
 
-            tiempo_token = 5
-
-
             nueva_sesion = SesionUsuario(
-
                 usuario_id=usuario.id,
-
                 token=token,
-
                 creado_en=ahora,
-
                 ultima_actividad=ahora,
-
-                expira_en=(
-                    ahora +
-                    timedelta(
-                        minutes=tiempo_token
-                    )
-                )
-
+                expira_en=ahora + timedelta(minutes=5)
             )
 
 
             db.session.add(
                 nueva_sesion
             )
-
-
-            # Guardar token en la sesión Flask
-            session["token"] = token
-
 
             db.session.commit()
 
