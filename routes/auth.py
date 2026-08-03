@@ -17,7 +17,6 @@ from werkzeug.security import (
 from models import (
     db,
     Usuario,
-    Configuracion,
     SesionUsuario
 )
 
@@ -71,40 +70,11 @@ def login():
 
             session["rol"] = usuario.rol
 
-            # ==========================================================
-            # Generación del token de sesión
-            # ==========================================================
-
-            # Eliminar sesiones anteriores del usuario
-            SesionUsuario.query.filter_by(usuario_id=usuario.id).delete()
-
-            # Generar token único
-            token = secrets.token_urlsafe(32)
-
-            config = Configuracion.query.first()
-            tiempo_token = config.tiempo_token if config else 5
-
-            ahora = datetime.now()
-
-            nueva_sesion = SesionUsuario(
-                usuario_id=usuario.id,
-                token=token,
-                creado_en=ahora,
-                ultima_actividad=ahora,
-                expira_en=ahora + timedelta(minutes=tiempo_token)
-            )
-
-            db.session.add(nueva_sesion)
-            session["token"] = token
-            db.session.commit()
-
 
             flash(
                 f"Bienvenido, {usuario.nombre}",
                 "success"
             )
-
-            print(dict(session))
 
             if usuario.rol == "admin":
 
