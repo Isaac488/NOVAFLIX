@@ -16,7 +16,14 @@ from werkzeug.security import (
 
 from models import (
     db,
-    Usuario
+    Usuario,
+    SesionUsuario
+)
+
+from datetime import (
+    datetime, 
+    timedelta, 
+    secrets
 )
 
 auth_bp = Blueprint(
@@ -62,6 +69,38 @@ def login():
 
             session["rol"] = usuario.rol
 
+            # ==========================================================
+            # Generación del token de sesión
+            # ==========================================================
+
+            # Eliminar sesiones anteriores del usuario
+            SesionUsuario.query.filter_by(usuario_id=usuario.id).delete()
+
+            # Generar token único
+            token = secrets.token_urlsafe(32)
+
+            # Obtener tiempo configurado
+            from models import Configuracion
+
+            config = Configuracion.query.first()
+            tiempo_token = config.tiempo_token if config else 5
+
+            ahora = datetime.now()
+
+            nueva_sesion = SesionUsuario(
+                usuario_id=usuario.id,
+                token=token,
+                creado_en=ahora,
+                ultima_actividad=ahora,
+                expira_en=ahora + timedelta(minutes=tiempo_token)
+            )
+
+            db.session.add(nueva_sesion)
+            db.session.commit()
+
+            # Guardar token también en la sesión Flask
+            session["token"] = token
+
             flash(
                 f"Bienvenido, {usuario.nombre}",
                 "success"
@@ -92,6 +131,7 @@ def login():
     return render_template(
         "login.html"
     )
+
 
 
 # ==========================================================
