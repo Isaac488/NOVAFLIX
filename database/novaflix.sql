@@ -18,7 +18,7 @@ CREATE TABLE configuracion (
     descripcion TEXT,
 
     tiempo_token INT
-        DEFAULT 3600,
+        DEFAULT 5,
 
     fecha_actualizacion TIMESTAMP
         DEFAULT CURRENT_TIMESTAMP
@@ -39,12 +39,12 @@ VALUES (
 
     'NOVAFLIX',
     NULL,
-    'Plataforma de Streaming desarrollada con Flask',
-    3600
+    'Plataforma de Streaming',
+    5
 
 );
 
-CREATE TABLE usuarios (
+CREATE TABLE s (
 
     id INT AUTO_INCREMENT PRIMARY KEY,
 
@@ -60,15 +60,38 @@ CREATE TABLE usuarios (
     rol ENUM(
 
         'admin',
-        'usuario'
+        ''
 
-    ) DEFAULT 'usuario',
+    ) DEFAULT '',
 
     foto_perfil VARCHAR(500),
 
     fecha_registro TIMESTAMP
         DEFAULT CURRENT_TIMESTAMP
 
+);
+
+CREATE TABLE sesiones_ (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    _id INT 
+        NOT NULL,
+
+    token VARCHAR(255) 
+        NOT NULL UNIQUE,
+
+    creado_en DATETIME 
+        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    ultima_actividad DATETIME 
+        NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    
+    expira_en DATETIME 
+        NOT NULL,
+
+    FOREIGN KEY (_id)
+        REFERENCES s(id)
+        ON DELETE CASCADE
 );
 
 CREATE TABLE categorias (
@@ -242,7 +265,7 @@ CREATE TABLE IF NOT EXISTS `historial` (
 
     `id` INT NOT NULL AUTO_INCREMENT,
 
-    `usuario_id` INT NOT NULL,
+    `_id` INT NOT NULL,
 
     `pelicula_id` INT NOT NULL,
 
@@ -254,15 +277,15 @@ CREATE TABLE IF NOT EXISTS `historial` (
 
     PRIMARY KEY (`id`),
 
-    KEY `usuario_id` (`usuario_id`),
+    KEY `_id` (`_id`),
 
     KEY `pelicula_id` (`pelicula_id`),
 
     KEY `fuente_id` (`fuente_id`),
 
-    CONSTRAINT `fk_historial_usuario`
-        FOREIGN KEY (`usuario_id`)
-        REFERENCES `usuarios` (`id`)
+    CONSTRAINT `fk_historial_`
+        FOREIGN KEY (`_id`)
+        REFERENCES `s` (`id`)
         ON DELETE CASCADE,
 
     CONSTRAINT `fk_historial_pelicula`
@@ -329,7 +352,7 @@ COLLATE=utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS favoritos (
 
-    usuario_id INT NOT NULL,
+    _id INT NOT NULL,
 
     pelicula_id INT NOT NULL,
 
@@ -338,17 +361,17 @@ CREATE TABLE IF NOT EXISTS favoritos (
 
     PRIMARY KEY (
 
-        usuario_id,
+        _id,
 
         pelicula_id
 
     ),
 
-    CONSTRAINT fk_favorito_usuario
+    CONSTRAINT fk_favorito_
 
-        FOREIGN KEY (usuario_id)
+        FOREIGN KEY (_id)
 
-        REFERENCES usuarios(id)
+        REFERENCES s(id)
 
         ON DELETE CASCADE
 
@@ -392,14 +415,14 @@ ON fuentes_video(pelicula_id);
 CREATE INDEX idx_fuente_tipo
 ON fuentes_video(tipo);
 
-CREATE INDEX idx_historial_usuario
-ON historial(usuario_id);
+CREATE INDEX idx_historial_
+ON historial(_id);
 
 CREATE INDEX idx_historial_pelicula
 ON historial(pelicula_id);
 
-CREATE INDEX idx_usuario_email
-ON usuarios(email);
+CREATE INDEX idx__email
+ON s(email);
 
 CREATE INDEX idx_categoria_nombre
 ON categorias(nombre);
@@ -428,10 +451,10 @@ VALUES
 
 
 -- --------------------------------------------------------
--- USUARIO ADMINISTRADOR
+--  ADMINISTRADOR
 -- --------------------------------------------------------
 
-INSERT INTO usuarios (
+INSERT INTO s (
 
     nombre,
 
@@ -458,10 +481,10 @@ VALUES (
 
 
 -- --------------------------------------------------------
--- USUARIO NORMAL
+--  NORMAL
 -- --------------------------------------------------------
 
-INSERT INTO usuarios (
+INSERT INTO s (
 
     nombre,
 
@@ -481,7 +504,7 @@ VALUES (
 
     'CAMBIAR_POR_HASH_REAL',
 
-    'usuario'
+    ''
 
 );
 

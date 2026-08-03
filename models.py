@@ -97,6 +97,52 @@ class Usuario(db.Model):
 
     )
 
+class SesionUsuario(db.Model):
+    __tablename__ = "sesiones_usuario"
+
+    id = db.Column(db.Integer, primary_key=True)
+
+    usuario_id = db.Column(
+        db.Integer,
+        db.ForeignKey("usuarios.id", ondelete="CASCADE"),
+        nullable=False
+    )
+
+    token = db.Column(
+        db.String(255),
+        unique=True,
+        nullable=False
+    )
+
+    creado_en = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp(),
+        nullable=False
+    )
+
+    ultima_actividad = db.Column(
+        db.DateTime,
+        default=db.func.current_timestamp(),
+        nullable=False
+    )
+
+    expira_en = db.Column(
+        db.DateTime,
+        nullable=False
+    )
+
+    usuario = db.relationship(
+        "Usuario",
+        backref=db.backref(
+            "sesiones",
+            lazy=True,
+            cascade="all, delete-orphan"
+        )
+    )
+
+    def __repr__(self):
+        return f"<SesionUsuario {self.usuario_id}>"
+
 
 # ==========================================================
 # CATEGORIAS
