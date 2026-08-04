@@ -402,7 +402,14 @@ async function renovarToken() {
             );
 
         if (!response.ok) {
+
+            controlSesionActivo = false;
+
+            window.location.href =
+                "/session-expired";
+
             return;
+
         }
 
         ultimaActividad = Date.now();
@@ -450,6 +457,10 @@ async function verificarSesion() {
         if (!data.autenticado) {
 
             controlSesionActivo = false;
+
+            window.location.href =
+                "/session-expired";
+
             return;
 
         }

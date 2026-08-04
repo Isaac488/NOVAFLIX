@@ -647,4 +647,3 @@ class Configuracion(db.Model):
         onupdate=db.func.now()
 
     )
-

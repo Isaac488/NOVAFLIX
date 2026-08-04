@@ -34,4 +34,4 @@ class Config:
     SQLALCHEMY_POOL_RECYCLE = 280
     SQLALCHEMY_POOL_PRE_PING = True
 
-    TMDB_API_KEY = os.getenv("TMDB_API_KEY")
+    TMDB_API_KEY = os.getenv("TMDB_API_KEY") 
