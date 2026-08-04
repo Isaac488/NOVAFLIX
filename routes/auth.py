@@ -32,6 +32,54 @@ auth_bp = Blueprint(
     __name__
 )
 
+# ==========================================================
+# UTILIDADES DE SESIÓN
+# ==========================================================
+
+def _obtener_sesion_actual():
+
+    user_id = session.get("user_id")
+    token = session.get("token")
+
+    if not user_id or not token:
+        return None
+
+    sesion = SesionUsuario.query.filter_by(
+        usuario_id=user_id,
+        token=token
+    ).first()
+
+    if not sesion:
+        return None
+
+    if sesion.expira_en < datetime.now():
+
+        db.session.delete(sesion)
+        db.session.commit()
+
+        session.clear()
+
+        return None
+
+    return sesion
+
+
+def _eliminar_sesion_actual():
+
+    token = session.get("token")
+
+    if token:
+
+        sesion = SesionUsuario.query.filter_by(
+            token=token
+        ).first()
+
+        if sesion:
+
+            db.session.delete(sesion)
+            db.session.commit()
+
+    session.clear()
 
 # ==========================================================
 # LOGIN
@@ -220,7 +268,7 @@ def register():
 @auth_bp.route("/logout")
 def logout():
 
-    session.clear()
+    _eliminar_sesion_actual()
 
     flash(
 
@@ -246,7 +294,7 @@ def logout():
 )
 def session_expired():
 
-    session.clear()
+    _eliminar_sesion_actual()
 
     return render_template(
         "session_expired.html"
@@ -262,24 +310,27 @@ def session_expired():
 )
 def session_status():
 
+    sesion = _obtener_sesion_actual()
+
+    if not sesion:
+
+        return jsonify({
+
+            "autenticado": False,
+
+            "rol": None,
+
+            "usuario": None
+
+        })
+
     return jsonify({
 
-        "autenticado":
-            bool(
-                session.get(
-                    "user_id"
-                )
-            ),
+        "autenticado": True,
 
-        "rol":
-            session.get(
-                "rol"
-            ),
+        "rol": session.get("rol"),
 
-        "usuario":
-            session.get(
-                "nombre"
-            )
+        "usuario": session.get("nombre")
 
     })
 
@@ -294,21 +345,30 @@ def session_status():
 )
 def refresh_token():
 
-    if "user_id" not in session:
+    sesion = _obtener_sesion_actual()
+
+    if not sesion:
 
         return jsonify({
 
-            "success": False
+            "success": False,
+
+            "mensaje": "Sesión expirada."
 
         }), 401
 
-    session.modified = True
+    ahora = datetime.now()
+
+    sesion.ultima_actividad = ahora
+
+    sesion.expira_en = ahora + timedelta(minutes=5)
+
+    db.session.commit()
 
     return jsonify({
 
         "success": True,
 
-        "mensaje":
-            "Sesión actualizada."
+        "mensaje": "Sesión renovada."
 
-    })  
+    })
