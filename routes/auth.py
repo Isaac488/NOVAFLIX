@@ -17,6 +17,7 @@ from werkzeug.security import (
 from models import (
     db,
     Usuario,
+    Configuracion,
     SesionUsuario
 )
 
@@ -81,6 +82,27 @@ def _eliminar_sesion_actual():
 
     session.clear()
 
+def obtener_tiempo_token():
+
+    try:
+
+        config = Configuracion.query.first()
+
+        if (
+            config
+            and
+            config.tiempo_token
+            and
+            config.tiempo_token > 0
+        ):
+            return config.tiempo_token
+
+    except Exception:
+
+        db.session.rollback()
+
+    return 5
+
 # ==========================================================
 # LOGIN
 # ==========================================================
@@ -139,7 +161,7 @@ def login():
                 token=token,
                 creado_en=ahora,
                 ultima_actividad=ahora,
-                expira_en=ahora + timedelta(minutes=5)
+                expira_en=ahora + timedelta(minutes=obtener_tiempo_token())
             )
 
 
@@ -361,7 +383,7 @@ def refresh_token():
 
     sesion.ultima_actividad = ahora
 
-    sesion.expira_en = ahora + timedelta(minutes=5)
+    sesion.expira_en = ahora + timedelta(minutes=obtener_tiempo_token())
 
     db.session.commit()
 
