@@ -6,9 +6,6 @@
 
 <div class="container py-5">
 
-
-    <!-- ENCABEZADO -->
-
     <div class="d-flex justify-content-between align-items-center mb-5">
 
         <div>
@@ -29,7 +26,6 @@
 
         </div>
 
-
         <a
             href="/admin/usuarios"
             class="btn btn-outline-secondary"
@@ -41,15 +37,9 @@
 
         </a>
 
-
     </div>
 
-
-
     <div class="row g-4">
-
-
-        <!-- FORMULARIO -->
 
         <div class="col-lg-8">
 
@@ -58,10 +48,7 @@
                 method="POST"
                 class="admin-form"
             >
-
-
                 <div class="form-section">
-
 
                     <h5>
 
@@ -71,17 +58,13 @@
 
                     </h5>
 
-
-
                     <div class="mb-3">
-
 
                         <label class="form-label">
 
                             Nombre
 
                         </label>
-
 
                         <input
                             type="text"
@@ -90,20 +73,15 @@
                             required
                         >
 
-
                     </div>
 
-
-
                     <div class="mb-3">
-
 
                         <label class="form-label">
 
                             Correo electrónico
 
                         </label>
-
 
                         <input
                             type="email"
@@ -112,20 +90,15 @@
                             required
                         >
 
-
                     </div>
 
-
-
                     <div class="mb-3">
-
 
                         <label class="form-label">
 
                             Contraseña
 
                         </label>
-
 
                         <input
                             type="password"
@@ -134,20 +107,15 @@
                             required
                         >
 
-
                     </div>
 
-
-
                     <div class="mb-4">
-
 
                         <label class="form-label">
 
                             Rol
 
                         </label>
-
 
                         <select
                             name="rol"
@@ -160,7 +128,6 @@
 
                             </option>
 
-
                             <option value="admin">
 
                                 Administrador
@@ -170,11 +137,9 @@
 
                         </select>
 
-
                     </div>
 
                     <div class="d-flex gap-3">
-
 
                         <button
                             type="submit"
@@ -185,8 +150,6 @@
 
                         </button>
 
-
-
                         <a
                             href="/admin/usuarios"
                             class="btn btn-outline-secondary"
@@ -196,27 +159,17 @@
 
                         </a>
 
-
                     </div>
-
 
                 </div>
 
-
             </form>
-
 
         </div>
 
-
-
-        <!-- INFORMACIÓN -->
-
         <div class="col-lg-4">
 
-
             <div class="dashboard-card">
-
 
                 <h5 class="mb-3">
 
@@ -225,7 +178,6 @@
                     Permisos de Usuario
 
                 </h5>
-
 
                 <p class="text-secondary mb-0">
 
@@ -236,20 +188,14 @@
 
                 </p>
 
-
             </div>
-
 
         </div>
 
-
     </div>
-
 
 </div>
 
-
 {% include 'partials/footer.html' %}
-
 
 {% endblock %}

@@ -39,19 +39,13 @@
 
 </div>
 
-
 <div class="row g-4">
-
-
-    <!-- FORMULARIO -->
 
     <div class="col-lg-8">
 
         <form method="POST" class="admin-form">
 
-
             <div class="form-section">
-
 
                 <h5>
 
@@ -60,7 +54,6 @@
                     Datos del Usuario
 
                 </h5>
-
 
                 <div class="mb-3">
 
@@ -80,7 +73,6 @@
 
                 </div>
 
-
                 <div class="mb-3">
 
                     <label class="form-label">
@@ -98,7 +90,6 @@
                     >
 
                 </div>
-
 
                 <div class="mb-3">
 
@@ -122,7 +113,6 @@
 
                 </div>
 
-
                 <div class="mb-4">
 
                     <label class="form-label">
@@ -130,7 +120,6 @@
                         Rol de Usuario
 
                     </label>
-
 
                     <select
                         name="rol"
@@ -145,7 +134,6 @@
                             Usuario
 
                         </option>
-
 
                         <option
                             value="admin"
@@ -162,7 +150,6 @@
 
                 </div>
 
-
                 <div class="d-flex gap-2">
 
 
@@ -176,7 +163,6 @@
                         Guardar Cambios
 
                     </button>
-
 
                     <a
                         href="/admin/usuarios"
@@ -205,7 +191,6 @@
 
     <div class="col-lg-4">
 
-
         <div class="dashboard-card">
 
 
@@ -216,7 +201,6 @@
                 Información de Cuenta
 
             </h5>
-
 
             <div class="mb-3">
 
@@ -234,7 +218,6 @@
 
             </div>
 
-
             <div class="mb-3">
 
                 <span class="text-secondary d-block">
@@ -242,7 +225,6 @@
                     Rol actual
 
                 </span>
-
 
                 {% if usuario.rol == "admin" %}
 
@@ -257,7 +239,6 @@
 
                 {% else %}
 
-
                 <span class="admin-badge admin-badge-info">
 
                     <i class="bi bi-person-fill me-1"></i>
@@ -266,12 +247,9 @@
 
                 </span>
 
-
                 {% endif %}
 
-
             </div>
-
 
             <div>
 
@@ -281,7 +259,6 @@
 
                 </span>
 
-
                 <p class="mb-0 text-secondary">
 
                     La contraseña solamente será modificada
@@ -289,15 +266,11 @@
 
                 </p>
 
-
             </div>
-
 
         </div>
 
-
     </div>
-
 
 </div>
 

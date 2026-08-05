@@ -6,9 +6,6 @@
 
 <div class="container py-5">
 
-
-    <!-- ENCABEZADO -->
-
     <div class="d-flex justify-content-between align-items-center mb-5">
 
         <div>
@@ -29,7 +26,6 @@
 
         </div>
 
-
         <a
             href="/admin"
             class="btn btn-outline-secondary"
@@ -43,8 +39,6 @@
 
 
     </div>
-
-
 
     <!-- ACCIÓN PRINCIPAL -->
 
@@ -63,11 +57,7 @@
 
     </div>
 
-
-
     {% if peliculas %}
-
-
 
     <div class="table-responsive">
 
@@ -139,20 +129,13 @@
 
             </thead>
 
-
-
             <tbody>
-
 
             {% for pelicula in peliculas %}
 
-
-
                 <tr>
 
-
                     <!-- POSTER -->
-
 
                     <td>
 
@@ -184,10 +167,7 @@
 
                     </td>
 
-
-
                     <!-- INFORMACIÓN -->
-
 
                     <td>
 
@@ -217,10 +197,7 @@
 
                     </td>
 
-
-
                     <!-- AÑO -->
-
 
                     <td>
 
@@ -242,13 +219,9 @@
 
                     </td>
 
-
-
                     <!-- CALIFICACIÓN -->
 
-
                     <td>
-
 
                         {% if pelicula.calificacion %}
 
@@ -282,7 +255,6 @@
 
                     <!-- REPRODUCCIÓN -->
 
-
                     <td>
 
 
@@ -300,31 +272,22 @@
 
                             </span>
 
-
                         {% else %}
-
 
                             <span class="admin-badge admin-badge-danger">
 
 
                                 <i class="bi bi-exclamation-circle me-1"></i>
 
-
                                 Falta link
-
 
                             </span>
 
-
                         {% endif %}
-
 
                     </td>
 
-
-
                     <!-- ACCIONES -->
-
 
                     <td class="text-center">
 
@@ -343,8 +306,6 @@
 
                             </a>
 
-
-
                             <a
                                 href="/pelicula/{{ pelicula.id }}"
                                 class="btn btn-info btn-action"
@@ -356,8 +317,6 @@
                                 <i class="bi bi-eye"></i>
 
                             </a>
-
-
 
                             <a
                                 href="/admin/peliculas/eliminar/{{ pelicula.id }}"
@@ -371,54 +330,33 @@
 
                             </a>
 
-
                         </div>
-
 
                     </td>
 
-
-
                 </tr>
-
-
 
             {% endfor %}
 
-
-
             </tbody>
-
-
 
         </table>
 
-
-
     </div>
-
-
 
     {% else %}
 
-
-
     <!-- SIN CONTENIDO -->
-
 
     <div class="alert alert-dark text-center py-5 rounded">
 
-
         <i class="bi bi-inbox text-secondary" style="font-size:3rem;"></i>
-
 
         <p class="mt-3 mb-3">
 
             No hay películas registradas.
 
         </p>
-
-
 
         <a
             href="/admin/peliculas/nueva"
@@ -431,14 +369,9 @@
 
         </a>
 
-
     </div>
 
-
-
     {% endif %}
-
-
 
 </div>
 
