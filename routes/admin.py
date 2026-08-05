@@ -47,7 +47,7 @@ def dashboard():
 
     total_usuarios = Usuario.query.count()
 
-    total_favoritos = Favorito.query.count()
+    total_categorias = Categoria.query.count()
 
     return render_template(
 
@@ -57,7 +57,7 @@ def dashboard():
 
         total_usuarios=total_usuarios,
 
-        total_favoritos=total_favoritos
+        total_categorias=total_categorias
 
     )
 
@@ -578,6 +578,219 @@ def eliminar_usuario(id):
     return redirect(
         url_for(
             "admin.usuarios_admin"
+        )
+    )
+
+# ==========================================================
+# CATEGORÍAS
+# ==========================================================
+
+@admin_bp.route("/categorias")
+@admin_required
+def categorias_admin():
+
+    categorias = (
+        Categoria.query
+        .order_by(
+            Categoria.nombre.asc()
+        )
+        .all()
+    )
+
+    return render_template(
+
+        "admin_categorias.html",
+
+        categorias=categorias
+
+    )
+
+
+@admin_bp.route(
+    "/categorias/nueva",
+    methods=["GET", "POST"]
+)
+@admin_required
+def nueva_categoria():
+
+    if request.method == "POST":
+
+        nombre = request.form.get(
+            "nombre",
+            ""
+        ).strip()
+
+        if not nombre:
+
+            flash(
+                "Debe ingresar un nombre para la categoría.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.nueva_categoria"
+                )
+            )
+
+        existe = Categoria.query.filter_by(
+            nombre=nombre
+        ).first()
+
+        if existe:
+
+            flash(
+                "Ya existe una categoría con ese nombre.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.nueva_categoria"
+                )
+            )
+
+        categoria = Categoria(
+            nombre=nombre
+        )
+
+        db.session.add(
+            categoria
+        )
+
+        db.session.commit()
+
+        flash(
+            "Categoría creada correctamente.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "admin.categorias_admin"
+            )
+        )
+
+    return render_template(
+        "admin_nueva_categoria.html"
+    )
+
+
+@admin_bp.route(
+    "/categorias/editar/<int:id>",
+    methods=["GET", "POST"]
+)
+@admin_required
+def editar_categoria(id):
+
+    categoria = Categoria.query.get_or_404(
+        id
+    )
+
+    if request.method == "POST":
+
+        nombre = request.form.get(
+            "nombre",
+            ""
+        ).strip()
+
+        if not nombre:
+
+            flash(
+                "Debe ingresar un nombre para la categoría.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.editar_categoria",
+                    id=id
+                )
+            )
+
+        existe = Categoria.query.filter(
+
+            Categoria.nombre == nombre,
+
+            Categoria.id != id
+
+        ).first()
+
+        if existe:
+
+            flash(
+                "Ya existe una categoría con ese nombre.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.editar_categoria",
+                    id=id
+                )
+            )
+
+        categoria.nombre = nombre
+
+        db.session.commit()
+
+        flash(
+            "Categoría actualizada correctamente.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "admin.categorias_admin"
+            )
+        )
+
+    return render_template(
+
+        "admin_editar_categoria.html",
+
+        categoria=categoria
+
+    )
+
+
+@admin_bp.route(
+    "/categorias/eliminar/<int:id>"
+)
+@admin_required
+def eliminar_categoria(id):
+
+    categoria = Categoria.query.get_or_404(
+        id
+    )
+
+    if len(categoria.peliculas) > 0:
+
+        flash(
+            "No es posible eliminar la categoría porque está asociada a una o más películas.",
+            "warning"
+        )
+
+        return redirect(
+            url_for(
+                "admin.categorias_admin"
+            )
+        )
+
+    db.session.delete(
+        categoria
+    )
+
+    db.session.commit()
+
+    flash(
+        "Categoría eliminada correctamente.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.categorias_admin"
         )
     )
 

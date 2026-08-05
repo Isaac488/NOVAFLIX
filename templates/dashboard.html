@@ -4,143 +4,37 @@
 
 {% include 'partials/navbar.html' %}
 
-
 <section class="dashboard">
 
 <div class="container py-5">
 
-
+    <!-- ====================================================== -->
     <!-- ENCABEZADO -->
+    <!-- ====================================================== -->
 
     <div class="dashboard-title mb-5">
 
         <h1>
 
-            Panel de Control
+            Panel de Administración
 
         </h1>
 
         <p>
 
-            Administra el contenido, usuarios y servicios
-            de la plataforma NOVAFLIX.
+            Administra todos los módulos de NovaFlix desde un
+            único lugar.
 
         </p>
 
-
     </div>
 
 
-
-    <!-- ESTADO DEL SISTEMA -->
-
-    <div class="row g-3 mb-5">
-
-
-        <div class="col-md-4">
-
-            <div class="dashboard-card">
-
-
-                <div class="dashboard-card-icon">
-
-                    <i class="bi bi-check-circle-fill"></i>
-
-                </div>
-
-
-                <h5>
-
-                    Sistema operativo
-
-                </h5>
-
-                <span>
-
-                    Todos los servicios funcionan correctamente.
-
-                </span>
-
-
-            </div>
-
-        </div>
-
-
-
-        <div class="col-md-4">
-
-            <div class="dashboard-card">
-
-
-                <div class="dashboard-card-icon">
-
-                    <i class="bi bi-database-fill-check"></i>
-
-                </div>
-
-
-                <h5>
-
-                    Base de datos
-
-                </h5>
-
-
-                <span>
-
-                    Conexión establecida correctamente.
-
-                </span>
-
-
-            </div>
-
-        </div>
-
-
-
-        <div class="col-md-4">
-
-            <div class="dashboard-card">
-
-
-                <div class="dashboard-card-icon">
-
-                    <i class="bi bi-cloud-check-fill"></i>
-
-                </div>
-
-
-                <h5>
-
-                    TMDB API
-
-                </h5>
-
-
-                <span>
-
-                    Importación de información disponible.
-
-                </span>
-
-
-            </div>
-
-        </div>
-
-
-    </div>
-
-
-
-
-
-    <!-- ACCIONES PRINCIPALES -->
+    <!-- ====================================================== -->
+    <!-- MÓDULOS ADMINISTRATIVOS -->
+    <!-- ====================================================== -->
 
     <div class="admin-panel mb-5">
-
 
         <div class="admin-panel-title">
 
@@ -148,29 +42,31 @@
 
                 <i class="bi bi-grid-fill text-danger"></i>
 
-                Gestión de plataforma
+                Módulos Administrativos
 
             </h3>
 
+            <span>
+
+                Accede rápidamente a cada sección del sistema.
+
+            </span>
 
         </div>
 
 
-
         <div class="row g-4">
 
+            <!-- PELÍCULAS -->
 
-
-            <div class="col-lg-3 col-md-6">
-
+            <div class="col-lg-4 col-md-6">
 
                 <a
-                    href="/admin/peliculas/nueva"
+                    href="/admin/peliculas"
                     class="text-decoration-none"
                 >
 
-                    <div class="dashboard-card text-center h-100">
-
+                    <div class="dashboard-card h-100 text-center">
 
                         <div class="dashboard-card-icon mx-auto">
 
@@ -178,87 +74,44 @@
 
                         </div>
 
-
                         <h5>
 
-                            Nueva película
+                            Películas
 
                         </h5>
 
-
                         <span>
 
-                            Añadir contenido al catálogo.
+                            Gestiona el catálogo audiovisual
+                            de NovaFlix.
 
                         </span>
 
+                        <hr>
+
+                        <strong>
+
+                            Administrar →
+
+                        </strong>
 
                     </div>
 
-
                 </a>
-
 
             </div>
 
 
+            <!-- USUARIOS -->
 
-
-
-            <div class="col-lg-3 col-md-6">
-
-
-                <a
-                    href="/admin/peliculas"
-                    class="text-decoration-none"
-                >
-
-                    <div class="dashboard-card text-center h-100">
-
-
-                        <div class="dashboard-card-icon mx-auto">
-
-                            <i class="bi bi-collection-play"></i>
-
-                        </div>
-
-
-                        <h5>
-
-                            Catálogo
-
-                        </h5>
-
-
-                        <span>
-
-                            Gestionar películas existentes.
-
-                        </span>
-
-
-                    </div>
-
-
-                </a>
-
-
-            </div>
-
-
-
-
-
-            <div class="col-lg-3 col-md-6">
-
+            <div class="col-lg-4 col-md-6">
 
                 <a
                     href="/admin/usuarios"
                     class="text-decoration-none"
                 >
 
-                    <div class="dashboard-card text-center h-100">
-
+                    <div class="dashboard-card h-100 text-center">
 
                         <div class="dashboard-card-icon mx-auto">
 
@@ -266,43 +119,134 @@
 
                         </div>
 
-
                         <h5>
 
                             Usuarios
 
                         </h5>
 
-
                         <span>
 
-                            Administración de cuentas.
+                            Administra las cuentas de los
+                            usuarios registrados.
 
                         </span>
 
+                        <hr>
+
+                        <strong>
+
+                            Administrar →
+
+                        </strong>
 
                     </div>
 
-
                 </a>
-
 
             </div>
 
 
+            <!-- CATEGORÍAS -->
+
+            <div class="col-lg-4 col-md-6">
+
+                <a
+                    href="/admin/categorias"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card h-100 text-center">
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-tags-fill"></i>
+
+                        </div>
+
+                        <h5>
+
+                            Categorías
+
+                        </h5>
+
+                        <span>
+
+                            Organiza las categorías disponibles
+                            para el catálogo.
+
+                        </span>
+
+                        <hr>
+
+                        <strong>
+
+                            Administrar →
+
+                        </strong>
+
+                    </div>
+
+                </a>
+
+            </div>
 
 
+            <!-- CRUD 2 -->
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-4 col-md-6">
 
+                <a
+                    href="#"
+                    class="text-decoration-none"
+                >
+
+                    <div class="dashboard-card h-100 text-center">
+
+                        <div class="dashboard-card-icon mx-auto">
+
+                            <i class="bi bi-box-seam-fill"></i>
+
+                        </div>
+
+                        <h5>
+
+                            Módulo 2
+
+                        </h5>
+
+                        <span>
+
+                            Espacio reservado para el siguiente
+                            CRUD administrativo.
+
+                        </span>
+
+                        <hr>
+
+                        <strong>
+
+                            Próximamente
+
+                        </strong>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- CONFIGURACIÓN -->
+
+            <div class="col-lg-4 col-md-6">
 
                 <a
                     href="/admin/configuracion"
                     class="text-decoration-none"
                 >
 
-                    <div class="dashboard-card text-center h-100">
-
+                    <div class="dashboard-card h-100 text-center">
 
                         <div class="dashboard-card-icon mx-auto">
 
@@ -310,151 +254,262 @@
 
                         </div>
 
-
                         <h5>
 
                             Configuración
 
                         </h5>
 
-
                         <span>
 
-                            Ajustes generales del sistema.
+                            Modifica los parámetros generales
+                            de la plataforma.
 
                         </span>
 
+                        <hr>
+
+                        <strong>
+
+                            Administrar →
+
+                        </strong>
 
                     </div>
 
-
                 </a>
-
 
             </div>
 
+            <!-- ESPACIO RESERVADO (FUTURO MÓDULO) -->
 
+            <div class="col-lg-4 col-md-6">
+
+                <div class="dashboard-card h-100 text-center">
+
+                    <div class="dashboard-card-icon mx-auto">
+
+                        <i class="bi bi-plus-square-fill"></i>
+
+                    </div>
+
+                    <h5>
+
+                        Próximo módulo
+
+                    </h5>
+
+                    <span>
+
+                        Espacio disponible para futuras
+                        funcionalidades administrativas.
+
+                    </span>
+
+                    <hr>
+
+                    <strong class="text-secondary">
+
+                        En desarrollo
+
+                    </strong>
+
+                </div>
+
+            </div>
 
         </div>
-
 
     </div>
 
 
+    <!-- ====================================================== -->
+    <!-- ACCIONES RÁPIDAS -->
+    <!-- ====================================================== -->
 
-
-
-    <!-- MODULOS FUTUROS -->
-
-    <div class="admin-panel">
-
+    <div class="admin-panel mb-5">
 
         <div class="admin-panel-title">
 
             <h3>
 
-                <i class="bi bi-layers-fill text-danger"></i>
+                <i class="bi bi-lightning-charge-fill text-danger"></i>
 
-                Servicios NOVAFLIX
+                Acciones rápidas
 
             </h3>
 
+            <span>
+
+                Accesos directos para las tareas más frecuentes.
+
+            </span>
 
         </div>
-
 
 
         <div class="row g-3">
 
+            <div class="col-lg-4">
 
-            <div class="col-md-4">
+                <a
+                    href="/admin/peliculas/nueva"
+                    class="btn btn-danger w-100 py-3"
+                >
 
-                <div class="dashboard-card">
+                    <i class="bi bi-plus-circle me-2"></i>
 
-                    <i class="bi bi-play-circle fs-2 text-danger"></i>
+                    Nueva película
 
-                    <h5 class="mt-3">
-
-                        Reproductor
-
-                    </h5>
-
-                    <span>
-
-                        Gestión del sistema de reproducción.
-
-                    </span>
-
-                </div>
-
+                </a>
 
             </div>
 
 
+            <div class="col-lg-4">
 
-            <div class="col-md-4">
+                <a
+                    href="/admin/usuarios/nuevo"
+                    class="btn btn-outline-light w-100 py-3"
+                >
 
-                <div class="dashboard-card">
+                    <i class="bi bi-person-plus me-2"></i>
 
-                    <i class="bi bi-heart-fill fs-2 text-danger"></i>
+                    Nuevo usuario
 
-                    <h5 class="mt-3">
-
-                        Favoritos
-
-                    </h5>
-
-                    <span>
-
-                        Listas personales de usuarios.
-
-                    </span>
-
-                </div>
-
+                </a>
 
             </div>
 
 
+            <div class="col-lg-4">
 
-            <div class="col-md-4">
+                <a
+                    href="/admin/categorias/nueva"
+                    class="btn btn-outline-light w-100 py-3"
+                >
 
-                <div class="dashboard-card">
+                    <i class="bi bi-tag-fill me-2"></i>
 
-                    <i class="bi bi-graph-up fs-2 text-danger"></i>
+                    Nueva categoría
 
-                    <h5 class="mt-3">
-
-                        Estadísticas
-
-                    </h5>
-
-                    <span>
-
-                        Métricas de uso y rendimiento.
-
-                    </span>
-
-                </div>
-
+                </a>
 
             </div>
-
 
         </div>
-
 
     </div>
 
 
+    <!-- ====================================================== -->
+    <!-- ESTADO DEL SISTEMA -->
+    <!-- ====================================================== -->
+
+    <div class="admin-panel">
+
+        <div class="admin-panel-title">
+
+            <h3>
+
+                <i class="bi bi-activity text-danger"></i>
+
+                Estado del sistema
+
+            </h3>
+
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card text-center">
+
+                    <h6>
+
+                        Plataforma
+
+                    </h6>
+
+                    <h4 class="text-success">
+
+                        Operativa
+
+                    </h4>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card text-center">
+
+                    <h6>
+
+                        Películas
+
+                    </h6>
+
+                    <h3>
+
+                        {{ total_peliculas }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card text-center">
+
+                    <h6>
+
+                        Usuarios
+
+                    </h6>
+
+                    <h3>
+
+                        {{ total_usuarios }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 col-md-6">
+
+                <div class="dashboard-card text-center">
+
+                    <h6>
+
+                        Categorías
+
+                    </h6>
+
+                    <h3>
+
+                        {{ total_categorias }}
+
+                    </h3>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 </section>
 
-
-
 {% include 'partials/footer.html' %}
-
 
 {% endblock %}
