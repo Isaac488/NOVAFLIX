@@ -496,54 +496,34 @@ class Audio(db.Model):
 
 
 # ==========================================================
-# FAVORITOS
+# CLASIFICACIONES
 # ==========================================================
 
-class Favorito(db.Model):
+class Clasificacion(db.Model):
 
-    __tablename__ = "favoritos"
+    __tablename__ = "clasificaciones"
 
-    usuario_id = db.Column(
+    id = db.Column(
         db.Integer,
-        db.ForeignKey(
-            "usuarios.id",
-            ondelete="CASCADE"
-        ),
         primary_key=True
     )
 
-    pelicula_id = db.Column(
-        db.Integer,
-        db.ForeignKey(
-            "peliculas.id",
-            ondelete="CASCADE"
-        ),
-        primary_key=True
+    nombre = db.Column(
+        db.String(20),
+        nullable=False,
+        unique=True
     )
 
-    fecha_agregado = db.Column(
-
-        db.DateTime,
-
-        server_default=db.func.now()
-
+    descripcion = db.Column(
+        db.String(255),
+        nullable=False
     )
 
-    usuario = db.relationship(
+    def __repr__(self):
 
-        "Usuario",
-
-        back_populates="favoritos"
-
-    )
-
-    pelicula = db.relationship(
-
-        "Pelicula",
-
-        back_populates="favoritos"
-
-    )
+        return (
+            f"<Clasificacion {self.nombre}>"
+        )
 
 
 # ==========================================================

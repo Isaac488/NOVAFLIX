@@ -19,8 +19,8 @@ from models import (
     Pelicula,
     Categoria,
     FuenteVideo,
+    Clasificacion,
     Configuracion,
-    Favorito
 )
 
 from utils.decorators import (
@@ -791,6 +791,222 @@ def eliminar_categoria(id):
     return redirect(
         url_for(
             "admin.categorias_admin"
+        )
+    )
+
+# ==========================================================
+# CLASIFICACIONES
+# ==========================================================
+
+@admin_bp.route("/clasificaciones")
+@admin_required
+def clasificaciones_admin():
+
+    clasificaciones = (
+        Clasificacion.query
+        .order_by(
+            Clasificacion.nombre.asc()
+        )
+        .all()
+    )
+
+    return render_template(
+
+        "admin_clasificaciones.html",
+
+        clasificaciones=clasificaciones
+
+    )
+
+
+@admin_bp.route(
+    "/clasificaciones/nueva",
+    methods=["GET", "POST"]
+)
+@admin_required
+def nueva_clasificacion():
+
+    if request.method == "POST":
+
+        nombre = request.form.get(
+            "nombre",
+            ""
+        ).strip()
+
+        descripcion = request.form.get(
+            "descripcion",
+            ""
+        ).strip()
+
+        if not nombre or not descripcion:
+
+            flash(
+                "Todos los campos son obligatorios.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.nueva_clasificacion"
+                )
+            )
+
+        existe = Clasificacion.query.filter_by(
+            nombre=nombre
+        ).first()
+
+        if existe:
+
+            flash(
+                "Ya existe una clasificación con ese nombre.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.nueva_clasificacion"
+                )
+            )
+
+        clasificacion = Clasificacion(
+
+            nombre=nombre,
+
+            descripcion=descripcion
+
+        )
+
+        db.session.add(
+            clasificacion
+        )
+
+        db.session.commit()
+
+        flash(
+            "Clasificación creada correctamente.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "admin.clasificaciones_admin"
+            )
+        )
+
+    return render_template(
+        "admin_nueva_clasificacion.html"
+    )
+
+
+@admin_bp.route(
+    "/clasificaciones/editar/<int:id>",
+    methods=["GET", "POST"]
+)
+@admin_required
+def editar_clasificacion(id):
+
+    clasificacion = Clasificacion.query.get_or_404(
+        id
+    )
+
+    if request.method == "POST":
+
+        nombre = request.form.get(
+            "nombre",
+            ""
+        ).strip()
+
+        descripcion = request.form.get(
+            "descripcion",
+            ""
+        ).strip()
+
+        if not nombre or not descripcion:
+
+            flash(
+                "Todos los campos son obligatorios.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.editar_clasificacion",
+                    id=id
+                )
+            )
+
+        existe = Clasificacion.query.filter(
+
+            Clasificacion.nombre == nombre,
+
+            Clasificacion.id != id
+
+        ).first()
+
+        if existe:
+
+            flash(
+                "Ya existe una clasificación con ese nombre.",
+                "warning"
+            )
+
+            return redirect(
+                url_for(
+                    "admin.editar_clasificacion",
+                    id=id
+                )
+            )
+
+        clasificacion.nombre = nombre
+
+        clasificacion.descripcion = descripcion
+
+        db.session.commit()
+
+        flash(
+            "Clasificación actualizada correctamente.",
+            "success"
+        )
+
+        return redirect(
+            url_for(
+                "admin.clasificaciones_admin"
+            )
+        )
+
+    return render_template(
+
+        "admin_editar_clasificacion.html",
+
+        clasificacion=clasificacion
+
+    )
+
+
+@admin_bp.route(
+    "/clasificaciones/eliminar/<int:id>"
+)
+@admin_required
+def eliminar_clasificacion(id):
+
+    clasificacion = Clasificacion.query.get_or_404(
+        id
+    )
+
+    db.session.delete(
+        clasificacion
+    )
+
+    db.session.commit()
+
+    flash(
+        "Clasificación eliminada correctamente.",
+        "success"
+    )
+
+    return redirect(
+        url_for(
+            "admin.clasificaciones_admin"
         )
     )
 

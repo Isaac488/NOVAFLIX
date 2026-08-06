@@ -71,6 +71,16 @@ CREATE TABLE s (
 
 );
 
+CREATE TABLE clasificaciones (
+
+    id INT AUTO_INCREMENT PRIMARY KEY,
+
+    nombre VARCHAR(20) NOT NULL UNIQUE,
+
+    descripcion VARCHAR(255) NOT NULL
+
+);
+
 CREATE TABLE sesiones_ (
     id INT AUTO_INCREMENT PRIMARY KEY,
 
