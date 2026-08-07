@@ -335,7 +335,7 @@ function registrarActividad() {
 
     refreshTimeout = setTimeout(
         renovarToken,
-        1000
+        500
     );
 
 }
@@ -465,27 +465,6 @@ async function verificarSesion() {
 
         }
 
-        if (data.rol === "admin") {
-
-            controlSesionActivo = false;
-            return;
-
-        }
-
-        const minutosInactivo =
-            (Date.now() - ultimaActividad)
-            / 1000
-            / 60;
-
-        if (
-            minutosInactivo >= tiempoToken
-        ) {
-
-            window.location.href =
-                "/session-expired";
-
-        }
-
     }
 
     catch (error) {
@@ -522,10 +501,7 @@ async function iniciarControlSesion() {
         const data =
             await response.json();
 
-        if (
-            !data.autenticado ||
-            data.rol === "admin"
-        ) {
+        if (!data.autenticado) {
             return;
         }
 
